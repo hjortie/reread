@@ -1,15 +1,7 @@
 import bcrypt from "bcryptjs";
 import type { registerRequest } from "../models/registerRequest.js";
 import { User, type UserType } from "../models/User.js";
-import type { UserDto } from "../models/UserDto.js";
-
-const convertDbToDto = async (dbUser: UserType): Promise<UserDto> => {
-  return {
-    username: dbUser.username,
-    email: dbUser.email,
-    booksOwned: dbUser.booksOwned.map((id) => id.toString()),
-  };
-};
+import { convertUserToDto } from "../helpers/authHelpers.mjs";
 
 export const createUser = async (data: registerRequest) => {
   const existingUser = await User.findOne({
@@ -38,5 +30,5 @@ export const createUser = async (data: registerRequest) => {
     booksOwned: [],
   });
 
-  return convertDbToDto(newUser);
+  return convertUserToDto(newUser);
 };
