@@ -1,16 +1,6 @@
-import { model, Schema, Types } from "mongoose";
+import { model, Schema, Types, type InferSchemaType } from "mongoose";
 
-export interface User {
-  _id: Types.ObjectId;
-  username: string;
-  email: string;
-  password: string;
-  location?: string;
-  avatarUrl?: string;
-  booksOwned: Types.ObjectId[];
-}
-
-const userSchema = new Schema<User>({
+const userSchema = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
@@ -19,4 +9,5 @@ const userSchema = new Schema<User>({
   booksOwned: [{ type: Schema.Types.ObjectId, ref: "Book" }],
 });
 
-export const UserModel = model<User>("User", userSchema);
+export const User = model("User", userSchema);
+export type UserType = InferSchemaType<typeof userSchema>;
