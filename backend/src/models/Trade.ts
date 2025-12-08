@@ -1,15 +1,6 @@
-import { model, Schema, Types } from "mongoose";
+import { model, Schema, Types, type InferSchemaType } from "mongoose";
 
-export interface Trade {
-  _id: Types.ObjectId;
-  requesterId: Types.ObjectId; // User
-  receiverId: Types.ObjectId; // User
-  offeredBooks: Types.ObjectId[]; //Book
-  requestedBook: Types.ObjectId; //Book
-  status: "pending" | "accepted" | "declined" | "completed";
-}
-
-const tradeSchema = new Schema<Trade>({
+const tradeSchema = new Schema({
   requesterId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   receiverId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   offeredBooks: [{ type: Schema.Types.ObjectId, ref: "Book", required: true }],
@@ -22,4 +13,5 @@ const tradeSchema = new Schema<Trade>({
   },
 });
 
-export const TradeModel = model<Trade>("Trade", tradeSchema);
+export const Trade = model("Trade", tradeSchema);
+export type TradeType = InferSchemaType<typeof tradeSchema>;

@@ -1,18 +1,6 @@
-import { model, Schema, Types } from "mongoose";
+import { model, Schema, Types, type InferSchemaType } from "mongoose";
 
-export interface Book {
-  _id: Types.ObjectId;
-  ownerId: Types.ObjectId; //User
-  title: string;
-  author: string;
-  genre: string;
-  condition: string;
-  description: string;
-  imageUrl?: string;
-  status: "available" | "in-trade" | "unavailable";
-}
-
-const bookSchema = new Schema<Book>({
+const bookSchema = new Schema({
   ownerId: { type: Schema.Types.ObjectId, ref: "User" },
   title: { type: String, required: true },
   author: { type: String, required: true },
@@ -28,4 +16,5 @@ const bookSchema = new Schema<Book>({
   },
 });
 
-export const BookModel = model<Book>("Book", bookSchema);
+export const Book = model("Book", bookSchema);
+export type BookType = InferSchemaType<typeof bookSchema>;
