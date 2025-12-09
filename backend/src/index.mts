@@ -4,6 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { loginRouter } from "./routes/loginRoute.mjs";
 import { registerRouter } from "./routes/registerRoute.mjs";
+import cookieParser from "cookie-parser";
+import { meRouter } from "./routes/meRoute.mjs";
 
 dotenv.config();
 
@@ -15,6 +17,7 @@ const app = express();
 
 //middlewares
 app.use(json());
+app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
@@ -25,6 +28,7 @@ app.use(
 //routes
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
+app.use("/me", meRouter);
 
 app.listen(port, async () => {
   try {

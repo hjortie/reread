@@ -17,12 +17,11 @@ loginRouter.post("/", async (req, res) => {
       } else {
         const token = jwt.sign(loggedInUser, process.env.JWT_SECRET as string);
 
-        const session = new Date();
-        session.setHours(session.getHours() + 1);
-
         res.cookie("login", token, {
-          expires: session,
-          httpOnly: false,
+          httpOnly: true,
+          maxAge: 60 * 60 * 1000, //Kakan expires efter en timme
+          secure: process.env.NODE_ENV === "production",
+          path: "/",
         });
         res
           .status(200)
