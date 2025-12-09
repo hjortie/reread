@@ -14,3 +14,18 @@ export const createUser = async (
   });
   console.log("Registration successful", response.data);
 };
+
+export const loginUser = async (email: string, password: string) => {
+  const response = await axios.post(
+    `${API_BASE}/login`,
+    {
+      email: email,
+      password: password,
+    },
+    { withCredentials: true }
+  );
+
+  if (response.status === 200) {
+    location.href = "/dashboard";
+  }
+};
