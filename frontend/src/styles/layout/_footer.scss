@@ -1,0 +1,29 @@
+@use "../abstracts" as abstracts;
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__decoration {
+    z-index: -9;
+    svg {
+      transform: translateY(10px);
+      width: 100%;
+      height: min-content;
+      fill: map-get(abstracts.$theme-colors, "fuzzy-brown");
+    }
+  }
+  &__content {
+    display: flex;
+    width: 100%;
+    padding-bottom: 5rem;
+    background: map-get(abstracts.$theme-colors, "fuzzy-brown");
+
+    &--text {
+      color: map-get(abstracts.$theme-colors, "ecru-white");
+    }
+  }
+}

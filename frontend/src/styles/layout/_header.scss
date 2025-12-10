@@ -1,0 +1,18 @@
+@use "../abstracts" as abstracts;
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .logo {
+    svg {
+      circle {
+        fill: map-get(abstracts.$theme-colors, "fuzzy-brown");
+      }
+      .leaf {
+        fill: map-get(abstracts.$theme-colors, "patina");
+        stroke: map-get(abstracts.$theme-colors, "patina");
+      }
+    }
+  }
+}

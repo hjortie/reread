@@ -1,0 +1,11 @@
+@use "../abstracts" as abstracts;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: map-get(abstracts.$theme-colors, "ecru-white");
+}
