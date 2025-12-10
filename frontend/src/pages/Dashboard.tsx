@@ -31,7 +31,9 @@ export const Dashboard = () => {
 
   return (
     <>
-      <h1>Hej {user.username}</h1>
+      <div className="dashboard container">
+        <h1>Hej {user.username}</h1>
+      </div>
     </>
   );
 };

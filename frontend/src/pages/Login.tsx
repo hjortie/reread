@@ -32,7 +32,7 @@ export const Login = () => {
 
   return (
     <>
-      <div className="login">
+      <div className="login container">
         <h1>Logga in</h1>
         <form onSubmit={onSubmit}>
           <div>

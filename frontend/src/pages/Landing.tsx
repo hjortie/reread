@@ -1,7 +1,9 @@
 export const Landing = () => {
   return (
     <>
-      <h1>Startsida</h1>
+      <div className="landing container">
+        <h1>Startsida</h1>
+      </div>
     </>
   );
 };
