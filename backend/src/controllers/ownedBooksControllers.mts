@@ -13,3 +13,12 @@ export const createBook = async (
   });
   return newBook;
 };
+
+export const deleteBook = async (userId: string, bookId: string) => {
+  const deletedBook = await Book.findOneAndDelete({
+    _id: bookId,
+    ownerId: userId,
+  });
+
+  return deletedBook;
+};

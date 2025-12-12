@@ -1,6 +1,10 @@
 import express from "express";
 import type { registerBookRequest } from "../models/registerBookRequest.js";
-import { createBook } from "../controllers/ownedBooksControllers.mjs";
+import {
+  createBook,
+  deleteBook,
+} from "../controllers/ownedBooksControllers.mjs";
+import { Book } from "../models/Book.js";
 
 export const ownedBooksRouter = express.Router();
 
@@ -8,7 +12,7 @@ export const ownedBooksRouter = express.Router();
 ownedBooksRouter.post("/", async (req, res) => {
   try {
     //Hämta användarID från request
-    const userId = (req as any).user._id;
+    const userId = req.user?._id;
 
     if (!userId) {
       res.status(404).json({ message: "No found user" });
@@ -36,6 +40,33 @@ ownedBooksRouter.post("/", async (req, res) => {
     }
   } catch (error: any) {
     console.error(error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//Ta bort bok
+ownedBooksRouter.delete("/:id", async (req, res) => {
+  const userId = req.user?._id;
+  const bookId = req.params.id;
+
+  if (!userId) {
+    res.status(401).json({ message: "Unauthorized" });
+  }
+  if (!bookId) {
+    res.status(400).json({ message: "Missing book id" });
+  }
+
+  try {
+    if (bookId && userId) {
+      const deletedBook = await deleteBook(userId, bookId);
+
+      if (!deletedBook)
+        return res.status(404).json({ message: "Book not found" });
+
+      res.status(200).json({ message: "Book deleted", deletedBook });
+    }
+  } catch (error: any) {
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 });

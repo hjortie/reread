@@ -1,4 +1,4 @@
-import { model, Schema, Types, type InferSchemaType } from "mongoose";
+import { model, Schema, type InferSchemaType } from "mongoose";
 
 const userSchema = new Schema({
   _id: { type: Schema.Types.ObjectId, ref: "User", required: true },

@@ -19,7 +19,7 @@ export const requireAuth = (
       token,
       process.env.JWT_SECRET as string
     ) as AuthUser;
-    (req as any).user = payload;
+    req.user = payload;
     next();
   } catch (error: any) {
     console.error(error.message);

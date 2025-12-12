@@ -31,7 +31,7 @@ app.use(
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/me", meRouter);
-app.use("/dashboard/new-book", requireAuth, ownedBooksRouter);
+app.use("/dashboard/my-books", requireAuth, ownedBooksRouter);
 
 app.listen(port, async () => {
   try {
