@@ -3,6 +3,7 @@ import type { registerBookRequest } from "../models/registerBookRequest.js";
 import {
   createBook,
   deleteBook,
+  getUserBooks,
   updateBook,
 } from "../controllers/ownedBooksControllers.mjs";
 
@@ -91,6 +92,20 @@ ownedBooksRouter.put("/:id", async (req, res) => {
       return res.status(404).json({ message: "Book not found" });
 
     res.status(200).json({ message: "Book updated", book: updatedBook });
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//Visa alla ägda böcker
+ownedBooksRouter.get("/", async (req, res) => {
+  const userId = req.user?._id;
+  if (!userId) return res.status(401).json({ message: "Unauthorized" });
+
+  try {
+    const userBooks = await getUserBooks(userId);
+    res.status(200).json({ message: "All books loaded", userBooks });
   } catch (error: any) {
     console.error(error);
     res.status(500).json({ error: error.message });

@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
-import { Book } from "../models/Book.js";
+import { Book, type BookType } from "../models/Book.js";
 import type { registerBookRequest } from "../models/registerBookRequest.js";
+import { ownedBooksRouter } from "../routes/ownedBooksRoute.mjs";
 
 export const createBook = async (
   ownerId: string,
@@ -53,4 +54,9 @@ export const updateBook = async (
     { new: true, runValidators: true }
   );
   return updatedBook;
+};
+
+export const getUserBooks = async (userId: string): Promise<BookType[]> => {
+  const userBooks = await Book.find({ ownerId: userId });
+  return userBooks;
 };
