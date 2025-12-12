@@ -3,8 +3,8 @@ import type { registerBookRequest } from "../models/registerBookRequest.js";
 import {
   createBook,
   deleteBook,
+  updateBook,
 } from "../controllers/ownedBooksControllers.mjs";
-import { Book } from "../models/Book.js";
 
 export const ownedBooksRouter = express.Router();
 
@@ -65,6 +65,32 @@ ownedBooksRouter.delete("/:id", async (req, res) => {
 
       res.status(200).json({ message: "Book deleted", deletedBook });
     }
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//Redigera bokinformation
+ownedBooksRouter.put("/:id", async (req, res) => {
+  const userId = req.user?._id;
+  const bookId = req.params.id;
+  const updates = req.body as registerBookRequest;
+
+  if (!userId) return res.status(401).json({ message: "Unauthorized" });
+  if (!bookId) return res.status(400).json({ message: "Missing book id" });
+  if (Object.keys(updates).length === 0) {
+    return res
+      .status(400)
+      .json({ message: "No new information provided, try again!" });
+  }
+  try {
+    const updatedBook = await updateBook(userId, bookId, updates);
+
+    if (!updatedBook)
+      return res.status(404).json({ message: "Book not found" });
+
+    res.status(200).json({ message: "Book updated", book: updatedBook });
   } catch (error: any) {
     console.error(error);
     res.status(500).json({ error: error.message });
