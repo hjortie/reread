@@ -1,4 +1,5 @@
-@use "../abstracts" as abstracts;
+@use "../abstracts" as *;
+@use "sass:map";
 
 header {
   display: flex;
@@ -7,11 +8,11 @@ header {
   .logo {
     svg {
       circle {
-        fill: map-get(abstracts.$theme-colors, "fuzzy-brown");
+        fill: map.get($theme-colors, "fuzzy-brown");
       }
       .leaf {
-        fill: map-get(abstracts.$theme-colors, "patina");
-        stroke: map-get(abstracts.$theme-colors, "patina");
+        fill: map.get($theme-colors, "patina");
+        stroke: map.get($theme-colors, "patina");
       }
     }
   }

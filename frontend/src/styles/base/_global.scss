@@ -1,4 +1,5 @@
-@use "../abstracts" as abstracts;
+@use "../abstracts" as *;
+@use "sass:map";
 
 html {
   scroll-behavior: smooth;
@@ -7,5 +8,5 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: map-get(abstracts.$theme-colors, "ecru-white");
+  background: map.get($theme-colors, "ecru-white");
 }
