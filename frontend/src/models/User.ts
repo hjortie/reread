@@ -3,5 +3,5 @@ export type User = {
   email: string;
   location?: string;
   avatarUrl?: string;
-  booksOwned: string[];
+  booksOwned: string[]; //_id:n från type Book
 };
