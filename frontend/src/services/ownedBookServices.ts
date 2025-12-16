@@ -9,3 +9,21 @@ export const getOwnedBooks = async () => {
   });
   return response.data.userBooks as Book[];
 };
+
+export const updateOwnedBook = async (bookId: string, data: Partial<Book>) => {
+  const response = await axios.put(
+    `${API_BASE}/dashboard/my-books/${bookId}`,
+    data,
+    { withCredentials: true }
+  );
+  return response.data.book;
+};
+
+export const createOwnedBook = async (
+  data: Omit<Book, "_id" | "ownerId" | "status"> & { imageUrl?: string }
+): Promise<Book> => {
+  const response = await axios.post(`${API_BASE}/dashboard/my-books`, data, {
+    withCredentials: true,
+  });
+  return response.data.newBook as Book;
+};

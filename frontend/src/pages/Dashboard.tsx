@@ -1,19 +1,17 @@
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { User } from "../models/User";
 import { ownedBooksContext } from "../contexts/OwnedBooksContext";
-import {
-  bookActionTypes,
-  OwnedBookReducer,
-} from "../reducers/ownedBooksReducer";
-import { getOwnedBooks } from "../services/ownedBookServices";
+import { BookCard } from "../components/BookCard";
+import { BookForm } from "../components/BookForm";
+
 const API_BASE = import.meta.env.VITE_API_URL;
 
 export const Dashboard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [fetched, setFetched] = useState(false);
-  const [ownedBooks, ownedBooksDispatch] = useReducer(OwnedBookReducer, []);
+  const { ownedBooks } = useContext(ownedBooksContext);
 
   useEffect(() => {
     if (fetched) return;
@@ -23,15 +21,6 @@ export const Dashboard = () => {
           withCredentials: true,
         });
         setUser(me.data.user);
-
-        // //hämta böcker till användare
-        // const books = await getOwnedBooks();
-        // console.log(books);
-
-        // ownedBooksDispatch({
-        //   type: bookActionTypes.LOADED,
-        //   payload: books,
-        // });
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -41,41 +30,29 @@ export const Dashboard = () => {
     load();
   }, [fetched]);
 
-  useEffect(() => {
-    //hämta böcker till användare
-    if (!user) return;
-    try {
-      getOwnedBooks().then((books) =>
-        ownedBooksDispatch({
-          type: bookActionTypes.LOADED,
-          payload: books,
-        })
-      );
-    } catch (error: any) {
-      setError(error.message);
-    }
-  }, [user]);
-
   if (!fetched) return <p>laddar...</p>;
-  if (!user) return <h1>Du är inte inloggad</h1>;
-  if (error) return <p>{error}</p>;
-
-  return (
-    <>
-      <ownedBooksContext.Provider
-        value={{ ownedBooks, ownedBooksDispatch: ownedBooksDispatch }}
-      >
+  if (!user)
+    return (
+      <div className="dashboard container">
+        <h1>Du är inte inloggad</h1>
+        <span>{error ? `${error}` : ``}</span>
+      </div>
+    );
+  else
+    return (
+      <>
         <div className="dashboard container">
-          <h1>Hej {user.username}</h1>
-          <div className="books-container">
+          <h1>{`Hej ${user.username}`}</h1>
+          <span>{error ? `${error}` : ``}</span>
+          <div className="books-container row">
+            <h2>Dina böcker</h2>
             {ownedBooks.map((book) => (
-              <div key={book._id} className="book-container">
-                <h2>{book.title}</h2>
-              </div>
+              <BookCard book={book} key={book._id} />
             ))}
           </div>
+          <h2>Lägg till fler böcker</h2>
+          <BookForm action="post" />
         </div>
-      </ownedBooksContext.Provider>
-    </>
-  );
+      </>
+    );
 };

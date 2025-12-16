@@ -27,7 +27,7 @@ export const deleteBook = async (userId: string, bookId: string) => {
 export const updateBook = async (
   userId: string,
   bookId: string,
-  data: registerBookRequest
+  data: Partial<registerBookRequest>
 ) => {
   //Rensa bort tomma fält
   const allowedFields = new Set([

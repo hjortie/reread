@@ -4,6 +4,7 @@ import { Registration } from "./pages/Registration";
 import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Landing } from "./pages/Landing";
+import { OwnedBook } from "./pages/OwnedBook";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       },
       { path: "/login", element: <Login /> },
       { path: "/dashboard", element: <Dashboard /> },
+      { path: "/dashboard/my-books/:id", element: <OwnedBook /> },
     ],
   },
 ]);
