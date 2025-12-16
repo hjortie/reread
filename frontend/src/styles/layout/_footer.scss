@@ -1,8 +1,8 @@
-@use "../abstracts" as abstracts;
+@use "../abstracts" as *;
+@use "sass:map";
 
 .footer {
-  position: absolute;
-  bottom: 0;
+  place-self: flex-end;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -10,20 +10,20 @@
   &__decoration {
     z-index: -9;
     svg {
-      transform: translateY(10px);
+      transform: translateY(9px);
       width: 100%;
       height: min-content;
-      fill: map-get(abstracts.$theme-colors, "fuzzy-brown");
+      fill: map.get($theme-colors, "fuzzy-brown");
     }
   }
   &__content {
     display: flex;
     width: 100%;
     padding-bottom: 5rem;
-    background: map-get(abstracts.$theme-colors, "fuzzy-brown");
+    background: map.get($theme-colors, "fuzzy-brown");
 
     &--text {
-      color: map-get(abstracts.$theme-colors, "ecru-white");
+      color: map.get($theme-colors, "ecru-white");
     }
   }
 }

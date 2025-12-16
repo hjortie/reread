@@ -1,0 +1,23 @@
+@use "../abstracts/" as *;
+@use "sass:map";
+
+.book-container {
+  margin: 0.75rem 0;
+  .book-card {
+    display: block;
+    height: 100%;
+    padding: 1rem;
+    background-color: map.get($theme-colors, "sandy-brown");
+    border-radius: 10px;
+    color: initial;
+    text-decoration: none;
+
+    &__img {
+      background-color: map.get($theme-colors, "ecru-white");
+      padding: 0.5rem;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
