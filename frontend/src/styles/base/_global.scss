@@ -10,3 +10,13 @@ body {
   padding: 0;
   background: map.get($theme-colors, "ecru-white");
 }
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  & > div {
+    flex: 1;
+  }
+}

@@ -1,7 +1,7 @@
 import { model, Schema, Types, type InferSchemaType } from "mongoose";
 
 const bookSchema = new Schema({
-  ownerId: { type: Schema.Types.ObjectId, ref: "User" },
+  ownerId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   title: { type: String, required: true },
   author: { type: String, required: true },
   genre: { type: String, required: true },
@@ -16,5 +16,7 @@ const bookSchema = new Schema({
   },
 });
 
+type BookSchemaType = InferSchemaType<typeof bookSchema>;
+//exportera typ som byggts ut med _id
+export type BookType = BookSchemaType & { _id: Types.ObjectId };
 export const Book = model("Book", bookSchema);
-export type BookType = InferSchemaType<typeof bookSchema>;

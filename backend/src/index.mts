@@ -6,6 +6,8 @@ import { loginRouter } from "./routes/loginRoute.mjs";
 import { registerRouter } from "./routes/registerRoute.mjs";
 import cookieParser from "cookie-parser";
 import { meRouter } from "./routes/meRoute.mjs";
+import { ownedBooksRouter } from "./routes/ownedBooksRoute.mjs";
+import { requireAuth } from "./middleware/requireAuth.mjs";
 
 dotenv.config();
 
@@ -29,6 +31,7 @@ app.use(
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/me", meRouter);
+app.use("/dashboard/my-books", requireAuth, ownedBooksRouter);
 
 app.listen(port, async () => {
   try {
