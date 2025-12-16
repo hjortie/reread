@@ -27,3 +27,11 @@ export const createOwnedBook = async (
   });
   return response.data.newBook as Book;
 };
+
+export const deleteOwnedBook = async (bookId: string) => {
+  const response = await axios.delete(
+    `${API_BASE}/dashboard/my-books/${bookId}`,
+    { withCredentials: true }
+  );
+  return response.data.deletedBook as Book;
+};
