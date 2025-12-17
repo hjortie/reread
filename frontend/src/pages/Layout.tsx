@@ -20,6 +20,7 @@ export const Layout = () => {
   const [ownedBooks, ownedBooksDispatch] = useReducer(OwnedBookReducer, []);
 
   useEffect(() => {
+    //hämta inloggad användare
     if (fetched) return;
     const load = async () => {
       try {

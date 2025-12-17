@@ -1,17 +1,23 @@
 import { Types } from "mongoose";
 import { Book, type BookType } from "../models/Book.js";
 import type { registerBookRequest } from "../models/registerBookRequest.js";
-import { ownedBooksRouter } from "../routes/ownedBooksRoute.mjs";
+import { User } from "../models/User.js";
 
 export const createBook = async (
-  ownerId: string,
+  userId: string,
   bookData: registerBookRequest
 ) => {
   const newBook = await Book.create({
     ...bookData,
-    ownerId: new Types.ObjectId(ownerId),
+    ownerId: new Types.ObjectId(userId),
     status: "available",
   });
+  if (newBook) {
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: { booksOwned: newBook._id },
+    });
+  }
+
   return newBook;
 };
 
@@ -20,6 +26,11 @@ export const deleteBook = async (userId: string, bookId: string) => {
     _id: bookId,
     ownerId: userId,
   });
+  if (deletedBook) {
+    await User.findByIdAndUpdate(userId, {
+      $pull: { booksOwned: deletedBook._id },
+    });
+  }
 
   return deletedBook;
 };

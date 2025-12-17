@@ -8,6 +8,8 @@ import cookieParser from "cookie-parser";
 import { meRouter } from "./routes/meRoute.mjs";
 import { ownedBooksRouter } from "./routes/ownedBooksRoute.mjs";
 import { requireAuth } from "./middleware/requireAuth.mjs";
+import { browseRouter } from "./routes/browseRoute.mjs";
+import { optionalAuth } from "./middleware/optionalAuth.mjs";
 
 dotenv.config();
 
@@ -28,6 +30,7 @@ app.use(
 );
 
 //routes
+app.use("/browse", optionalAuth, browseRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/me", meRouter);
