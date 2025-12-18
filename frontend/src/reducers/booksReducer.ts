@@ -13,7 +13,7 @@ export type BookAction =
   | { type: bookActionTypes.UPDATED; payload: Book }
   | { type: bookActionTypes.DELETED; payload: Book["_id"] };
 
-export const OwnedBookReducer = (books: Book[], action: BookAction): Book[] => {
+export const booksReducer = (books: Book[], action: BookAction): Book[] => {
   let updatedBooks = books;
   switch (action.type) {
     case bookActionTypes.ADDED:

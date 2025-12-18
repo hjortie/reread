@@ -1,12 +1,9 @@
 import { Outlet } from "react-router";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { ownedBooksContext } from "../contexts/OwnedBooksContext";
-import { getOwnedBooks } from "../services/ownedBookServices";
-import {
-  bookActionTypes,
-  OwnedBookReducer,
-} from "../reducers/ownedBooksReducer";
+import { BooksContext } from "../contexts/BooksContext";
+import { getBooks } from "../services/bookServices";
+import { booksReducer, bookActionTypes } from "../reducers/booksReducer";
 import { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { User } from "../models/User";
@@ -17,8 +14,7 @@ export const Layout = () => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [fetched, setFetched] = useState(false);
-  const [ownedBooks, ownedBooksDispatch] = useReducer(OwnedBookReducer, []);
-
+  const [books, booksDispatch] = useReducer(booksReducer, []);
   useEffect(() => {
     //hämta inloggad användare
     if (fetched) return;
@@ -38,11 +34,9 @@ export const Layout = () => {
   }, [fetched]);
 
   useEffect(() => {
-    //hämta böcker till användare
-    if (!user) return;
     try {
-      getOwnedBooks().then((books) =>
-        ownedBooksDispatch({
+      getBooks().then((books) =>
+        booksDispatch({
           type: bookActionTypes.LOADED,
           payload: books,
         })
@@ -57,15 +51,13 @@ export const Layout = () => {
   return (
     <>
       <main id="app">
-        <ownedBooksContext.Provider
-          value={{ ownedBooks, ownedBooksDispatch: ownedBooksDispatch }}
-        >
+        <BooksContext.Provider value={{ books, booksDispatch: booksDispatch }}>
           <Header />
-
+          {fetched ? <span></span> : <span>...laddar</span>}
           <Outlet />
 
           <Footer />
-        </ownedBooksContext.Provider>
+        </BooksContext.Provider>
       </main>
     </>
   );

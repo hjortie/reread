@@ -30,10 +30,10 @@ app.use(
 );
 
 //routes
-app.use("/browse", optionalAuth, browseRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/me", meRouter);
+app.use("/books", optionalAuth, browseRouter);
 app.use("/dashboard/my-books", requireAuth, ownedBooksRouter);
 
 app.listen(port, async () => {

@@ -3,7 +3,7 @@ import { createUser } from "../services/authServices";
 
 export const Registration = () => {
   const defaultValues = {
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -29,14 +29,14 @@ export const Registration = () => {
       setError("Lösenorden matchar inte.");
       return;
     }
-    if (!form.terms) {
-      setError("Du måste godkänna villkoren.");
-      return;
-    }
+    // if (!form.terms) {
+    //   setError("Du måste godkänna villkoren.");
+    //   return;
+    // }
 
     try {
       setSubmitting(true);
-      await createUser(form.name, form.email, form.password);
+      await createUser(form.username, form.email, form.password);
     } catch (error: any) {
       setError(error?.message ?? "Något gick fel vid registrering.");
     } finally {
@@ -52,12 +52,12 @@ export const Registration = () => {
         <div>
           <label htmlFor="name">Användarnamn</label>
           <input
-            id="name"
-            name="name"
+            id="username"
+            name="username"
             type="text"
-            autoComplete="name"
+            autoComplete="username"
             required
-            value={form.name}
+            value={form.username}
             onChange={onChange}
           />
         </div>
@@ -99,7 +99,7 @@ export const Registration = () => {
             onChange={onChange}
           />
         </div>
-        <div>
+        {/* <div>
           <label>
             <input
               name="terms"
@@ -110,7 +110,7 @@ export const Registration = () => {
             />
             Jag godkänner villkoren
           </label>
-        </div>
+        </div> */}
 
         {error && <p role="alert">{error}</p>}
 

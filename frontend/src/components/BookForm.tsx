@@ -1,10 +1,7 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import {
-  createOwnedBook,
-  updateOwnedBook,
-} from "../services/ownedBookServices";
-import { ownedBooksContext } from "../contexts/OwnedBooksContext";
-import { bookActionTypes } from "../reducers/ownedBooksReducer";
+import { createOwnedBook, updateOwnedBook } from "../services/bookServices";
+import { BooksContext } from "../contexts/BooksContext";
+import { bookActionTypes } from "../reducers/booksReducer";
 
 type formProps = {
   action: "post" | "put";
@@ -37,7 +34,7 @@ export const BookForm = (props: formProps) => {
     "Lite tummad",
     "Slitet skick",
   ];
-  const { ownedBooksDispatch } = useContext(ownedBooksContext);
+  const { booksDispatch } = useContext(BooksContext);
   const [form, setForm] = useState(defaultBook);
 
   const handleChange = (
@@ -61,12 +58,12 @@ export const BookForm = (props: formProps) => {
       if (props.action === "put" && props.bookId) {
         if (Object.keys(payload).length === 0) return;
         const updated = await updateOwnedBook(props.bookId, payload);
-        ownedBooksDispatch({ type: bookActionTypes.UPDATED, payload: updated });
+        booksDispatch({ type: bookActionTypes.UPDATED, payload: updated });
         //hantera skickat formulär om action = put
       } else if (props.action === "post") {
         //hantera skickat formulär om action = post
         const newBook = await createOwnedBook(form);
-        ownedBooksDispatch({ type: bookActionTypes.ADDED, payload: newBook });
+        booksDispatch({ type: bookActionTypes.ADDED, payload: newBook });
       }
       setForm(defaultBook);
     } catch (error: any) {

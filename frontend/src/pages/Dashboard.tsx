@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { User } from "../models/User";
-import { ownedBooksContext } from "../contexts/OwnedBooksContext";
+import { BooksContext } from "../contexts/BooksContext";
 import { BookCard } from "../components/BookCard";
 import { BookForm } from "../components/BookForm";
 
@@ -11,7 +11,7 @@ export const Dashboard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [fetched, setFetched] = useState(false);
-  const { ownedBooks } = useContext(ownedBooksContext);
+  const { books } = useContext(BooksContext);
 
   useEffect(() => {
     if (fetched) return;
@@ -29,6 +29,8 @@ export const Dashboard = () => {
     };
     load();
   }, [fetched]);
+
+  const ownedBooks = books.filter((b) => b.ownerId === user?._id);
 
   if (!fetched) return <p>laddar...</p>;
   if (!user)

@@ -3,11 +3,9 @@ import { Book } from "../models/Book";
 
 const API_BASE = import.meta.env.VITE_API_URL;
 
-export const getOwnedBooks = async () => {
-  const response = await axios.get(`${API_BASE}/dashboard/my-books`, {
-    withCredentials: true,
-  });
-  return response.data.userBooks as Book[];
+export const getBooks = async () => {
+  const response = await axios.get(`${API_BASE}/books`);
+  return response.data.books as Book[];
 };
 
 export const updateOwnedBook = async (bookId: string, data: Partial<Book>) => {

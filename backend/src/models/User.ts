@@ -1,7 +1,6 @@
-import { model, Schema, type InferSchemaType } from "mongoose";
+import { model, Schema, Types, type InferSchemaType } from "mongoose";
 
 const userSchema = new Schema({
-  _id: { type: Schema.Types.ObjectId, ref: "User", required: true },
   username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
@@ -11,4 +10,8 @@ const userSchema = new Schema({
 });
 
 export const User = model("User", userSchema);
-export type UserType = InferSchemaType<typeof userSchema>;
+
+//exportera typ som byggts ut med _id
+type UserSchemaType = InferSchemaType<typeof userSchema>;
+
+export type UserType = UserSchemaType & { _id: Types.ObjectId };

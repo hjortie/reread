@@ -5,6 +5,7 @@ import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Landing } from "./pages/Landing";
 import { OwnedBook } from "./pages/OwnedBook";
+import { Browse } from "./pages/Browse";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
         element: <Registration />,
       },
       { path: "/login", element: <Login /> },
+      { path: "/browse", element: <Browse /> },
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/dashboard/my-books/:id", element: <OwnedBook /> },
     ],

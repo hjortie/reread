@@ -1,23 +1,23 @@
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router";
-import { ownedBooksContext } from "../contexts/OwnedBooksContext";
+import { BooksContext } from "../contexts/BooksContext";
 import { BookForm } from "../components/BookForm";
 import defaultBook from "../assets/defaultBook.svg";
-import { deleteOwnedBook } from "../services/ownedBookServices";
-import { bookActionTypes } from "../reducers/ownedBooksReducer";
+import { deleteOwnedBook } from "../services/bookServices";
+import { bookActionTypes } from "../reducers/booksReducer";
 
 export const OwnedBook = () => {
   const { id } = useParams<{ id: string }>();
-  const { ownedBooks, ownedBooksDispatch } = useContext(ownedBooksContext);
+  const { books, booksDispatch } = useContext(BooksContext);
   const navigate = useNavigate();
 
   if (!id) return <div className="container">Bok-ID ej hittat</div>;
-  const selectedBook = ownedBooks.find((b) => b._id === id);
+  const selectedBook = books.find((b) => b._id === id);
   const handleClick = async () => {
     const deleted = await deleteOwnedBook(id);
     alert(`Du har tagit bort ${deleted.title}`);
     setTimeout(() => navigate("/dashboard"), 20);
-    ownedBooksDispatch({ type: bookActionTypes.DELETED, payload: id });
+    booksDispatch({ type: bookActionTypes.DELETED, payload: id });
   };
 
   if (!selectedBook) return <h1 className="container">Ingen bok :(</h1>;
