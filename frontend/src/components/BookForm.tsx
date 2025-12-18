@@ -8,6 +8,23 @@ type formProps = {
   bookId?: string;
 };
 
+export const genres = [
+  "Biografi",
+  "Roman",
+  "Deckare",
+  "Fantasy",
+  "Sci-fi",
+  "Facklitteratur",
+  "Poesi",
+  "Barn",
+];
+export const conditions = [
+  "Oöppnad",
+  "Så gott som ny",
+  "Lite tummad",
+  "Slitet skick",
+];
+
 export const BookForm = (props: formProps) => {
   const defaultBook = {
     title: "",
@@ -18,22 +35,6 @@ export const BookForm = (props: formProps) => {
     description: "",
   };
 
-  const genres = [
-    "Biografi",
-    "Roman",
-    "Deckare",
-    "Fantasy",
-    "Sci-fi",
-    "Facklitteratur",
-    "Poesi",
-    "Barn",
-  ];
-  const conditions = [
-    "Oöppnad",
-    "Så gott som ny",
-    "Lite tummad",
-    "Slitet skick",
-  ];
   const { booksDispatch } = useContext(BooksContext);
   const [form, setForm] = useState(defaultBook);
 

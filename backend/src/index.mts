@@ -32,7 +32,7 @@ app.use(
 //routes
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
-app.use("/me", meRouter);
+app.use("/me", optionalAuth, meRouter);
 app.use("/books", optionalAuth, browseRouter);
 app.use("/dashboard/my-books", requireAuth, ownedBooksRouter);
 
