@@ -25,7 +25,7 @@ export const conditions = [
   "Slitet skick",
 ];
 
-export const BookForm = (props: formProps) => {
+export const BookInfoForm = (props: formProps) => {
   const defaultBook = {
     title: "",
     author: "",

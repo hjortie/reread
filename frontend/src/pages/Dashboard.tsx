@@ -1,34 +1,12 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { User } from "../models/User";
+import { useContext } from "react";
 import { BooksContext } from "../contexts/BooksContext";
 import { BookCard } from "../components/BookCard";
-import { BookForm } from "../components/BookForm";
-
-const API_BASE = import.meta.env.VITE_API_URL;
+import { BookInfoForm } from "../components/BookInfoForm";
+import { useMe } from "../hooks/useMe";
 
 export const Dashboard = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [fetched, setFetched] = useState(false);
   const { books } = useContext(BooksContext);
-
-  useEffect(() => {
-    if (fetched) return;
-    const load = async () => {
-      try {
-        const me = await axios.get(`${API_BASE}/me`, {
-          withCredentials: true,
-        });
-        setUser(me.data.user);
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
-        setFetched(true);
-      }
-    };
-    load();
-  }, [fetched]);
+  const { user, fetched, error } = useMe();
 
   const ownedBooks = books.filter((b) => b.ownerId === user?._id);
 
@@ -53,7 +31,7 @@ export const Dashboard = () => {
             ))}
           </div>
           <h2>Lägg till fler böcker</h2>
-          <BookForm action="post" />
+          <BookInfoForm action="post" />
         </div>
       </>
     );

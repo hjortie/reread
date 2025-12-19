@@ -1,28 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { BooksContext } from "../contexts/BooksContext";
 import { BookCard } from "../components/BookCard";
-import { User } from "../models/User";
-import { conditions, genres } from "../components/BookForm";
-import { getMe } from "../services/meServices";
+import { conditions, genres } from "../components/BookInfoForm";
+import { useMe } from "../hooks/useMe";
 
 export const Browse = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [fetched, setFetched] = useState(false);
   const [filters, setFilters] = useState({ q: "", condition: "", genre: "" });
   const { books } = useContext(BooksContext);
-
-  useEffect(() => {
-    if (fetched) return;
-    const load = async () => {
-      try {
-        const me = await getMe();
-        setUser(me);
-      } finally {
-        setFetched(true);
-      }
-    };
-    load();
-  }, [fetched]);
+  const { user } = useMe();
 
   let availableBooks = books.filter((book) => book.status === "available");
   if (user) {
