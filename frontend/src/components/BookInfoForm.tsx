@@ -148,7 +148,7 @@ export const BookInfoForm = (props: formProps) => {
         onChange={handleChange}
         rows={4}
       />
-      <button>Spara bok</button>
+      <button className="theme-btn">Spara bok</button>
     </form>
   );
 };

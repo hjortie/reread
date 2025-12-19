@@ -25,7 +25,9 @@ export const BookEdit = (props: BookEditProps) => {
       <h1>Redigera bok</h1>
       <BookInfoForm action="put" bookId={props.book._id} />
       <h2>Ta bort bok</h2>
-      <button onClick={handleDeleteClick}>Radera {props.book.title}</button>
+      <button onClick={handleDeleteClick} className="theme-btn">
+        Radera {props.book.title}
+      </button>
     </div>
   );
 };

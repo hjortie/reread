@@ -48,7 +48,9 @@ export const Book = () => {
               <div className="col-12 col-md-6">
                 <h2>Du måste vara inloggad</h2>
                 <p>Logga in för att lägga ett bud eller redigera din bok</p>
-                <button onClick={handleLoginClick}>Logga in</button>
+                <button onClick={handleLoginClick} className="theme-btn">
+                  Logga in
+                </button>
               </div>
             ) : user?._id === selectedBook.ownerId ? (
               <BookEdit book={selectedBook} />

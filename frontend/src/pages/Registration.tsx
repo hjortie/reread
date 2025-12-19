@@ -114,7 +114,7 @@ export const Registration = () => {
 
         {error && <p role="alert">{error}</p>}
 
-        <button type="submit" disabled={submitting}>
+        <button type="submit" disabled={submitting} className="theme-btn">
           {submitting ? "Registrerar..." : "Registrera mig!"}
         </button>
       </form>

@@ -62,7 +62,7 @@ export const Login = () => {
 
           {error && <p role="alert"> {error}</p>}
 
-          <button disabled={submitting}>
+          <button disabled={submitting} className="theme-btn">
             {submitting ? "Loggar in..." : "Logga in"}
           </button>
         </form>
