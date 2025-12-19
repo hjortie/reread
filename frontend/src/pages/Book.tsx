@@ -1,15 +1,13 @@
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router";
 import { BooksContext } from "../contexts/BooksContext";
-import { BookInfoForm } from "../components/BookInfoForm";
 import defaultBook from "../assets/defaultBook.svg";
-import { deleteOwnedBook } from "../services/bookServices";
-import { bookActionTypes } from "../reducers/booksReducer";
 import { useMe } from "../hooks/useMe";
+import { BookEdit } from "../components/BookEdit";
 
 export const Book = () => {
   const { id } = useParams<{ id: string }>();
-  const { books, booksDispatch } = useContext(BooksContext);
+  const { books } = useContext(BooksContext);
   const navigate = useNavigate();
   const { user, fetched } = useMe();
 
@@ -20,13 +18,6 @@ export const Book = () => {
 
   const handleLoginClick = () => {
     navigate("/login");
-  };
-
-  const handleDeleteClick = async () => {
-    const deleted = await deleteOwnedBook(id);
-    alert(`Du har tagit bort ${deleted.title}`);
-    setTimeout(() => navigate("/dashboard"), 20);
-    booksDispatch({ type: bookActionTypes.DELETED, payload: id });
   };
 
   if (!selectedBook) return <h1 className="container">Ingen bok :(</h1>;
@@ -60,14 +51,7 @@ export const Book = () => {
                 <button onClick={handleLoginClick}>Logga in</button>
               </div>
             ) : user?._id === selectedBook.ownerId ? (
-              <div className="col-12 col-md-6">
-                <h1>Redigera bok</h1>
-                <BookInfoForm action="put" bookId={id} />
-                <h2>Ta bort bok</h2>
-                <button onClick={handleDeleteClick}>
-                  Radera {selectedBook.title}
-                </button>
-              </div>
+              <BookEdit book={selectedBook} />
             ) : (
               <div className="col-12 col-md-6">
                 <h1>Lägg ett bud</h1>
