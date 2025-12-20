@@ -9,10 +9,7 @@ export const BookCard = (props: BookViewProps) => {
   return (
     <>
       <div className="book-container col-4 col-md-3 col-lg-2">
-        <Link
-          className="book-card"
-          to={`/dashboard/my-books/${String(props.book._id)}`}
-        >
+        <Link className="book-card" to={`/book/${String(props.book._id)}`}>
           <div className="book-card__img">
             <img
               src={
