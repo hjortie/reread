@@ -48,7 +48,7 @@ export const Registration = () => {
   return (
     <div className="registration container">
       <h1>Registrera konto</h1>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} id="registration-form">
         <div>
           <label htmlFor="name">Användarnamn</label>
           <input

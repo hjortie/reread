@@ -34,7 +34,7 @@ export const Login = () => {
     <>
       <div className="login container">
         <h1>Logga in</h1>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} id="login-form">
           <div>
             <label htmlFor="email">Email</label>
             <input
