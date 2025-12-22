@@ -1,0 +1,18 @@
+@use "../abstracts/" as *;
+@use "sass:map";
+
+base-btn {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.5rem 1.5rem;
+  min-width: 20px;
+  transition: all 0.2s;
+  line-height: 28px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.theme-btn {
+  @extend base-btn;
+  background: map.get($theme-colors, "patina");
+}

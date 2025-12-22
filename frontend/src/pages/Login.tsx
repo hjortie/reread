@@ -34,7 +34,7 @@ export const Login = () => {
     <>
       <div className="login container">
         <h1>Logga in</h1>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} id="login-form">
           <div>
             <label htmlFor="email">Email</label>
             <input
@@ -62,7 +62,7 @@ export const Login = () => {
 
           {error && <p role="alert"> {error}</p>}
 
-          <button disabled={submitting}>
+          <button disabled={submitting} className="theme-btn">
             {submitting ? "Loggar in..." : "Logga in"}
           </button>
         </form>

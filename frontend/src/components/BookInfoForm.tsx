@@ -73,7 +73,7 @@ export const BookInfoForm = (props: formProps) => {
   };
 
   return (
-    <form id="book-form" action={props.action} onSubmit={handleSubmit}>
+    <form id="book-info-form" action={props.action} onSubmit={handleSubmit}>
       <div>
         <label htmlFor="title">Boktitel</label>
         <input
@@ -140,15 +140,17 @@ export const BookInfoForm = (props: formProps) => {
           onChange={handleChange}
         />
       </div>
-      <label htmlFor="description">Beskrivning</label>
-      <textarea
-        name="description"
-        id="description"
-        value={form.description}
-        onChange={handleChange}
-        rows={4}
-      />
-      <button>Spara bok</button>
+      <div>
+        <label htmlFor="description">Beskrivning</label>
+        <textarea
+          name="description"
+          id="description"
+          value={form.description}
+          onChange={handleChange}
+          rows={4}
+        />
+      </div>
+      <button className="theme-btn">Spara bok</button>
     </form>
   );
 };
