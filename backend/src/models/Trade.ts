@@ -14,4 +14,6 @@ const tradeSchema = new Schema({
 });
 
 export const Trade = model("Trade", tradeSchema);
-export type TradeType = InferSchemaType<typeof tradeSchema>;
+
+type TradeSchemaType = InferSchemaType<typeof tradeSchema>;
+export type TradeType = TradeSchemaType & { _id: Types.ObjectId };

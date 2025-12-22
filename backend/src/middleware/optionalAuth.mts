@@ -15,10 +15,8 @@ export async function optionalAuth(
       process.env.JWT_SECRET as string
     ) as AuthUser;
     req.user = payload;
-    next();
   } catch (error: any) {
     console.error(error.message);
-    res.status(401).json({ message: "Invalid token" });
   }
   next();
 }

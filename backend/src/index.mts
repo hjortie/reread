@@ -10,6 +10,7 @@ import { ownedBooksRouter } from "./routes/ownedBooksRoute.mjs";
 import { requireAuth } from "./middleware/requireAuth.mjs";
 import { browseRouter } from "./routes/browseRoute.mjs";
 import { optionalAuth } from "./middleware/optionalAuth.mjs";
+import { tradeRouter } from "./routes/tradeRoute.mjs";
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use("/login", loginRouter);
 app.use("/me", optionalAuth, meRouter);
 app.use("/books", optionalAuth, browseRouter);
 app.use("/dashboard/my-books", requireAuth, ownedBooksRouter);
+app.use("/trade", requireAuth, tradeRouter);
 
 app.listen(port, async () => {
   try {
