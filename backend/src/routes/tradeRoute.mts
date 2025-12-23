@@ -1,5 +1,5 @@
 import express from "express";
-import { createTrade } from "../controllers/tradeControllers.mjs";
+import { createTrade, getTrades } from "../controllers/tradeControllers.mjs";
 
 export const tradeRouter = express.Router();
 
@@ -26,7 +26,30 @@ tradeRouter.post("/:id", async (req, res) => {
     if (createdTrade) {
       res.status(201).json({ message: "Trade created", createdTrade });
     }
-  } catch (error: any) {}
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+tradeRouter.get("/", async (req, res) => {
+  //hämta anändarens mottagna trade requests
+  try {
+    const userId = req.user?._id;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+    const userTrades = await getTrades(userId);
+    if (!userTrades || userTrades.length === 0) {
+      res.status(400).json({ message: "No current trades" });
+    } else {
+      res.status(200).json({ message: "User trades:", userTrades });
+    }
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
 });
 
 tradeRouter.put("/:id", async (req, res) => {

@@ -12,6 +12,15 @@ export const createTrade = async (
     const receiverId = book?.ownerId.toString();
     const offeredIds = offer.map((id) => new Types.ObjectId(id));
 
+    //hindra flera requests för samma användare + bok
+    const tradeExists = await Trade.exists({
+      requesterId: new Types.ObjectId(userId),
+      requestedBook: new Types.ObjectId(bookId),
+      status: "pending",
+    });
+    if (tradeExists)
+      throw new Error("A pending trade for this book already exists");
+
     const createdTrade = await Trade.create({
       requesterId: new Types.ObjectId(userId),
       requestedBook: new Types.ObjectId(bookId),
@@ -29,6 +38,18 @@ export const createTrade = async (
     return createdTrade as TradeType;
   } catch (error) {
     console.error(error);
-  } finally {
+    throw error;
+  }
+};
+
+export const getTrades = async (userId: string) => {
+  try {
+    const trades = await Trade.find({ receiverId: userId })
+      .populate("requestedBook", "_id title author imageUrl condition genre")
+      .populate("offeredBooks", "_id title author imageUrl condition genre");
+
+    return trades as TradeType[];
+  } catch (error) {
+    console.error(error);
   }
 };
