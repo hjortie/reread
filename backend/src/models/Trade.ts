@@ -5,6 +5,11 @@ const tradeSchema = new Schema({
   receiverId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   offeredBooks: [{ type: Schema.Types.ObjectId, ref: "Book", required: true }],
   requestedBook: { type: Schema.Types.ObjectId, ref: "Book", required: true },
+  acceptedOfferedBook: {
+    type: Schema.Types.ObjectId,
+    ref: "Book",
+    default: null,
+  },
   status: {
     type: String,
     enum: ["pending", "accepted", "declined", "completed"],

@@ -1,5 +1,9 @@
 import express from "express";
-import { createTrade, getTrades } from "../controllers/tradeControllers.mjs";
+import {
+  createTrade,
+  getTrades,
+  respondToRequest,
+} from "../controllers/tradeControllers.mjs";
 
 export const tradeRouter = express.Router();
 
@@ -54,4 +58,29 @@ tradeRouter.get("/", async (req, res) => {
 
 tradeRouter.put("/:id", async (req, res) => {
   //uppdatera trade med mottagarens svar : accept, eller decline
+  const userId = req.user?._id;
+  const tradeId = req.params.id;
+  const { action, acceptedBookId } = req.body as {
+    action: "accept" | "decline";
+    acceptedBookId?: string;
+  };
+
+  if (!userId) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
+
+  try {
+    const updatedTradeRequest = await respondToRequest(
+      tradeId,
+      action,
+      acceptedBookId
+    );
+    res
+      .status(200)
+      .json({ message: "Trade updated", trade: updatedTradeRequest });
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
 });

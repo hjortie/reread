@@ -14,8 +14,8 @@ export const createTrade = async (
 
     //hindra flera requests för samma användare + bok
     const tradeExists = await Trade.exists({
-      requesterId: new Types.ObjectId(userId),
-      requestedBook: new Types.ObjectId(bookId),
+      requesterId: userId,
+      requestedBook: bookId,
       status: "pending",
     });
     if (tradeExists)
@@ -49,6 +49,66 @@ export const getTrades = async (userId: string) => {
       .populate("offeredBooks", "_id title author imageUrl condition genre");
 
     return trades as TradeType[];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const respondToRequest = async (
+  tradeId: string,
+  action: "accept" | "decline",
+  chosenOfferedBookId?: string
+) => {
+  try {
+    const trade = await Trade.findById(tradeId).populate(
+      "requestedBook",
+      "_id title author imageUrl condition genre"
+    );
+    if (!trade) throw new Error("Trade not found");
+
+    //hantera trade-objektets uppdatering vid decline
+    if (action === "decline") {
+      const declinedTrade = await Trade.findByIdAndUpdate(tradeId, {
+        $set: { status: "declined", acceptedOfferedBook: null },
+      });
+      //uppdatera requested book + offeredBooks status
+      if (declinedTrade) {
+        await Book.findByIdAndUpdate(trade.requestedBook._id, {
+          $set: { status: "available" },
+        });
+        await Book.updateMany(
+          { _id: { $in: trade.offeredBooks } },
+          {
+            $set: { status: "available" },
+          }
+        );
+      }
+    } else if (action === "accept") {
+      //uppdatera trade objekt vid accept (kräver vald accepterad bok)
+      if (!chosenOfferedBookId)
+        throw new Error("Missing chosen offered book to accept");
+
+      const acceptedTrade = await Trade.findByIdAndUpdate(tradeId, {
+        $set: { status: "accepted", acceptedOfferedBook: chosenOfferedBookId },
+      });
+
+      if (acceptedTrade) {
+        const unchosenBooks = trade.offeredBooks.map(
+          (b) => b.toString() !== chosenOfferedBookId
+        );
+        //hantera bokuppdateringar
+        await Book.findByIdAndUpdate(trade.requestedBook._id, {
+          $set: { status: "unavailable" },
+        });
+        await Book.findByIdAndUpdate(chosenOfferedBookId, {
+          $set: { status: "unavailable" },
+        });
+        await Book.updateMany(
+          { _id: { $in: unchosenBooks } },
+          { $set: { status: "available" } }
+        );
+      }
+    }
   } catch (error) {
     console.error(error);
   }
