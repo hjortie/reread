@@ -35,7 +35,7 @@ app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/me", optionalAuth, meRouter);
 app.use("/books", optionalAuth, browseRouter);
-app.use("/dashboard/my-books", requireAuth, ownedBooksRouter);
+app.use("/my-books", requireAuth, ownedBooksRouter);
 app.use("/trade", requireAuth, tradeRouter);
 
 app.listen(port, async () => {

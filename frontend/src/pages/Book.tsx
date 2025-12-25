@@ -4,6 +4,7 @@ import { BooksContext } from "../contexts/BooksContext";
 import defaultBook from "../assets/defaultBook.svg";
 import { useMe } from "../hooks/useMe";
 import { BookEdit } from "../components/BookEdit";
+import { TradeForm } from "../components/TradeForm";
 
 export const Book = () => {
   const { id } = useParams<{ id: string }>();
@@ -57,7 +58,7 @@ export const Book = () => {
             ) : (
               <div className="col-12 col-md-6">
                 <h1>Lägg ett bud</h1>
-                Här ska det bo ett formulär för att skapa trade-requests
+                <TradeForm bookId={selectedBook._id} />
               </div>
             )}
           </div>

@@ -34,6 +34,12 @@ export const createTrade = async (
       await Book.findByIdAndUpdate(bookId, {
         status: "in-trade",
       });
+      await Book.updateMany(
+        { _id: { $in: offeredIds } },
+        {
+          $set: { status: "in-trade" },
+        }
+      );
     }
     return createdTrade as TradeType;
   } catch (error) {
