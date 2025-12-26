@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Trade } from "../models/Trade";
+import { PopTrade, Trade } from "../models/Trade";
 
 const API_BASE = import.meta.env.VITE_API_URL;
 
@@ -12,4 +12,14 @@ export const createTrade = async (bookId: string, selectedBooks: string[]) => {
     }
   );
   return response.data.createdTrade as Trade;
+};
+
+export const getTrades = async (): Promise<{
+  incoming: PopTrade[];
+  outgoing: PopTrade[];
+}> => {
+  const response = await axios.get(`${API_BASE}/trade`, {
+    withCredentials: true,
+  });
+  return response.data.userTrades;
 };
