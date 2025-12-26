@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getOwnedBooks } from "../services/bookServices";
 import { Book } from "../models/Book";
 import { createTrade } from "../services/tradeServices";
+import { bookActionTypes } from "../reducers/booksReducer";
+import { BooksContext } from "../contexts/BooksContext";
 
 type TradeFormProps = {
   bookId: string;
@@ -9,7 +11,9 @@ type TradeFormProps = {
 export const TradeForm = (props: TradeFormProps) => {
   const [ownedBooks, setOwnedBooks] = useState<Book[]>([]);
   const [fetched, setFetched] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
+  const { booksDispatch } = useContext(BooksContext);
 
   useEffect(() => {
     const load = async () => {
@@ -39,7 +43,18 @@ export const TradeForm = (props: TradeFormProps) => {
     if (selectedBooks.length === 0) return;
     try {
       const trade = await createTrade(props.bookId, selectedBooks);
-      console.log(trade);
+      const affectedIds = [props.bookId, ...selectedBooks];
+
+      affectedIds.forEach((id) =>
+        booksDispatch({
+          type: bookActionTypes.UPDATED,
+          payload: { _id: id, status: "in-trade" },
+        })
+      );
+      if (trade) {
+        setSuccess(true);
+        setSelectedBooks([]);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -66,6 +81,7 @@ export const TradeForm = (props: TradeFormProps) => {
           Skicka bytesförfrågan
         </button>
       </form>
+      {success && <p>Bytesförfrågan skickad!</p>}
     </>
   );
 };

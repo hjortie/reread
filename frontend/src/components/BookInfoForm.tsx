@@ -57,10 +57,11 @@ export const BookInfoForm = (props: formProps) => {
     ) as Partial<typeof form>;
     try {
       if (props.action === "put" && props.bookId) {
+        //hantera skickat formulär om action = put
         if (Object.keys(payload).length === 0) return;
+
         const updated = await updateOwnedBook(props.bookId, payload);
         booksDispatch({ type: bookActionTypes.UPDATED, payload: updated });
-        //hantera skickat formulär om action = put
       } else if (props.action === "post") {
         //hantera skickat formulär om action = post
         const newBook = await createOwnedBook(form);
