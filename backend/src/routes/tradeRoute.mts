@@ -45,7 +45,10 @@ tradeRouter.get("/", async (req, res) => {
       return;
     }
     const userTrades = await getTrades(userId);
-    if (!userTrades || userTrades.length === 0) {
+    if (
+      !userTrades ||
+      (userTrades.incoming.length === 0 && userTrades.outgoing.length === 0)
+    ) {
       res.status(400).json({ message: "No current trades" });
     } else {
       res.status(200).json({ message: "User trades:", userTrades });

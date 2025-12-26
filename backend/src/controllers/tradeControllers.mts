@@ -48,15 +48,24 @@ export const createTrade = async (
   }
 };
 
-export const getTrades = async (userId: string) => {
+export const getTrades = async (
+  userId: string
+): Promise<{ incoming: TradeType[]; outgoing: TradeType[] }> => {
   try {
-    const trades = await Trade.find({ receiverId: userId })
+    const incomingTrades = await Trade.find({ receiverId: userId })
       .populate("requestedBook", "_id title author imageUrl condition genre")
       .populate("offeredBooks", "_id title author imageUrl condition genre");
 
-    return trades as TradeType[];
+    const outgoingTrades = await Trade.find({ requesterId: userId })
+      .populate("requestedBook", "_id title author imageUrl condition genre")
+      .populate("offeredBooks", "_id title author imageUrl condition genre");
+    return {
+      incoming: incomingTrades as TradeType[],
+      outgoing: outgoingTrades as TradeType[],
+    };
   } catch (error) {
     console.error(error);
+    throw Error;
   }
 };
 
@@ -99,7 +108,7 @@ export const respondToRequest = async (
       });
 
       if (acceptedTrade) {
-        const unchosenBooks = trade.offeredBooks.map(
+        const unchosenBooks = trade.offeredBooks.filter(
           (b) => b.toString() !== chosenOfferedBookId
         );
         //hantera bokuppdateringar
