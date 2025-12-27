@@ -32,13 +32,13 @@ export const respondToTrade = async (
   const response = await axios.put(
     `${API_BASE}/trade/${tradeId}`,
     {
-      action,
-      selectedBook,
+      action: action,
+      acceptedBookId: selectedBook,
     },
     {
       withCredentials: true,
     }
   );
 
-  return response.data.trade;
+  return response.data.trade as Trade;
 };
