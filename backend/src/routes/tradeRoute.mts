@@ -74,14 +74,12 @@ tradeRouter.put("/:id", async (req, res) => {
   }
 
   try {
-    const updatedTradeRequest = await respondToRequest(
+    const updatedTrade = await respondToRequest(
       tradeId,
       action,
       acceptedBookId
     );
-    res
-      .status(200)
-      .json({ message: "Trade updated", trade: updatedTradeRequest });
+    res.status(200).json({ message: "Trade updated", trade: updatedTrade });
   } catch (error: any) {
     console.error(error);
     res.status(500).json({ error: error.message });

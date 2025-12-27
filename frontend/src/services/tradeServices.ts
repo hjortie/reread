@@ -23,3 +23,22 @@ export const getTrades = async (): Promise<{
   });
   return response.data.userTrades;
 };
+
+export const respondToTrade = async (
+  tradeId: string,
+  action: "accept" | "decline",
+  selectedBook?: string
+) => {
+  const response = await axios.put(
+    `${API_BASE}/trade/${tradeId}`,
+    {
+      action,
+      selectedBook,
+    },
+    {
+      withCredentials: true,
+    }
+  );
+
+  return response.data.trade;
+};

@@ -83,9 +83,13 @@ export const respondToRequest = async (
 
     //hantera trade-objektets uppdatering vid decline
     if (action === "decline") {
-      const declinedTrade = await Trade.findByIdAndUpdate(tradeId, {
-        $set: { status: "declined", acceptedOfferedBook: null },
-      });
+      const declinedTrade = await Trade.findByIdAndUpdate(
+        tradeId,
+        {
+          $set: { status: "declined", acceptedOfferedBook: null },
+        },
+        { new: true }
+      );
       //uppdatera requested book + offeredBooks status
       if (declinedTrade) {
         await Book.findByIdAndUpdate(trade.requestedBook._id, {
@@ -98,14 +102,22 @@ export const respondToRequest = async (
           }
         );
       }
+      return declinedTrade as TradeType;
     } else if (action === "accept") {
       //uppdatera trade objekt vid accept (kräver vald accepterad bok)
       if (!chosenOfferedBookId)
         throw new Error("Missing chosen offered book to accept");
 
-      const acceptedTrade = await Trade.findByIdAndUpdate(tradeId, {
-        $set: { status: "accepted", acceptedOfferedBook: chosenOfferedBookId },
-      });
+      const acceptedTrade = await Trade.findByIdAndUpdate(
+        tradeId,
+        {
+          $set: {
+            status: "accepted",
+            acceptedOfferedBook: chosenOfferedBookId,
+          },
+        },
+        { new: true }
+      );
 
       if (acceptedTrade) {
         const unchosenBooks = trade.offeredBooks.filter(
@@ -123,6 +135,7 @@ export const respondToRequest = async (
           { $set: { status: "available" } }
         );
       }
+      return acceptedTrade as TradeType;
     }
   } catch (error) {
     console.error(error);

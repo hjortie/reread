@@ -3,7 +3,7 @@ import { BooksContext } from "../contexts/BooksContext";
 import { BookCard } from "../components/BookCard";
 import { BookInfoForm } from "../components/BookInfoForm";
 import { useMe } from "../hooks/useMe";
-import { PopTrade, Trade } from "../models/Trade";
+import { PopTrade } from "../models/Trade";
 import { UserTrades } from "../components/UserTrades";
 import { getTrades } from "../services/tradeServices";
 
@@ -13,6 +13,12 @@ export const Dashboard = () => {
   const [incomingTrades, setIncomingTrades] = useState<PopTrade[]>([]);
   const [outgoingTrades, setOutgoingTrades] = useState<PopTrade[]>([]);
   const { user, error } = useMe();
+
+  const refreshTrades = async () => {
+    const data = await getTrades();
+    setIncomingTrades(data.incoming);
+    setOutgoingTrades(data.outgoing);
+  };
 
   const ownedBooks = books.filter((b) => b.ownerId === user?._id);
   useEffect(() => {
@@ -48,10 +54,18 @@ export const Dashboard = () => {
           <span>{error ? `${error}` : ``}</span>
 
           {incomingTrades.length !== 0 && (
-            <UserTrades trades={incomingTrades} type="incoming" />
+            <UserTrades
+              trades={incomingTrades}
+              type="incoming"
+              onRefresh={refreshTrades}
+            />
           )}
           {outgoingTrades.length !== 0 && (
-            <UserTrades trades={outgoingTrades} type="outgoing" />
+            <UserTrades
+              trades={outgoingTrades}
+              type="outgoing"
+              onRefresh={refreshTrades}
+            />
           )}
 
           <div className="books-container row">

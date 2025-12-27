@@ -1,0 +1,12 @@
+@use "../abstracts/" as *;
+@use "sass:map";
+
+.trade-card {
+  &__book-img {
+    width: 50%;
+
+    img {
+      width: 100%;
+    }
+  }
+}
