@@ -6,6 +6,7 @@ import { useMe } from "../hooks/useMe";
 import { PopTrade } from "../models/Trade";
 import { UserTrades } from "../components/UserTrades";
 import { getTrades } from "../services/tradeServices";
+import { useNavigate } from "react-router";
 
 export const Dashboard = () => {
   const { books } = useContext(BooksContext);
@@ -13,11 +14,20 @@ export const Dashboard = () => {
   const [incomingTrades, setIncomingTrades] = useState<PopTrade[]>([]);
   const [outgoingTrades, setOutgoingTrades] = useState<PopTrade[]>([]);
   const { user, error } = useMe();
+  const navigate = useNavigate();
 
   const refreshTrades = async () => {
     const data = await getTrades();
     setIncomingTrades(data.incoming);
     setOutgoingTrades(data.outgoing);
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  const handleRegisterClick = () => {
+    navigate("/register");
   };
 
   const ownedBooks = books.filter((b) => b.ownerId === user?._id);
@@ -38,12 +48,17 @@ export const Dashboard = () => {
     }
   }, [fetched]);
 
-  if (!fetched) return <p>laddar...</p>;
   if (!user)
     return (
       <div className="dashboard container">
         <h1>Du är inte inloggad</h1>
-        <span>{error ? `${error}` : ``}</span>
+        <button className="theme-btn" onClick={handleLoginClick}>
+          Logga in
+        </button>
+        <button className="theme-btn" onClick={handleRegisterClick}>
+          Registrera dig
+        </button>
+        {error && <span>{error}</span>}
       </div>
     );
   else
