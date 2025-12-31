@@ -1,0 +1,15 @@
+.browse {
+  &__search-fields {
+    & > div {
+      display: flex;
+      flex-direction: column;
+
+      &:first-child {
+        flex: 1;
+      }
+      & > label {
+        transform: translateY(2px);
+      }
+    }
+  }
+}

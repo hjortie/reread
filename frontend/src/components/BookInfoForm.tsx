@@ -74,8 +74,13 @@ export const BookInfoForm = (props: formProps) => {
   };
 
   return (
-    <form id="book-info-form" action={props.action} onSubmit={handleSubmit}>
-      <div>
+    <form
+      id="book-info-form"
+      className="row"
+      action={props.action}
+      onSubmit={handleSubmit}
+    >
+      <div className="col-12 col-md-6">
         <label htmlFor="title">Boktitel</label>
         <input
           type="text"
@@ -85,7 +90,7 @@ export const BookInfoForm = (props: formProps) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div className="col-12 col-md-6">
         <label htmlFor="author">Författare</label>
         <input
           type="text"
@@ -95,7 +100,7 @@ export const BookInfoForm = (props: formProps) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div className="col-12 col-md-6">
         <label htmlFor="genre">Genre</label>
         <select
           id="genre"
@@ -113,7 +118,7 @@ export const BookInfoForm = (props: formProps) => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="col-12 col-md-6">
         <label htmlFor="condition">Skick</label>
         <select
           id="condition"
@@ -131,7 +136,7 @@ export const BookInfoForm = (props: formProps) => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="col-12 col-md-6">
         <label htmlFor="imageUrl">Omslagsbild</label>
         <input
           type="text"
@@ -141,7 +146,7 @@ export const BookInfoForm = (props: formProps) => {
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div className="col-12">
         <label htmlFor="description">Beskrivning</label>
         <textarea
           name="description"
@@ -151,7 +156,9 @@ export const BookInfoForm = (props: formProps) => {
           rows={4}
         />
       </div>
-      <button className="theme-btn">Spara bok</button>
+      <div>
+        <button className="theme-btn">Spara bok</button>
+      </div>
     </form>
   );
 };

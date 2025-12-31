@@ -1,8 +1,4 @@
 #book-info-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-
   & > div {
     display: flex;
     flex-direction: column;
@@ -10,5 +6,8 @@
     label {
       transform: translateY(4px);
     }
+  }
+  .theme-btn {
+    margin-top: 1rem;
   }
 }

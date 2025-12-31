@@ -66,7 +66,7 @@ export const Dashboard = () => {
       <>
         <div className="dashboard container">
           <h1>{`Hej ${user.username}`}</h1>
-          <span>{error ? `${error}` : ``}</span>
+          {error && <span>{error}</span>}
 
           {incomingTrades.length !== 0 && (
             <UserTrades

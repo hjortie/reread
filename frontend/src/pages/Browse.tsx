@@ -42,42 +42,50 @@ export const Browse = () => {
   return (
     <>
       <div className="browse container">
-        <label htmlFor="search">Sök efter titel/författare</label>
-        <input
-          type="text"
-          name="q"
-          id="search"
-          onChange={handleChange}
-          value={filters.q}
-        />
-        <label htmlFor="condition">Skick</label>
-        <select
-          id="condition"
-          name="condition"
-          value={filters.condition}
-          onChange={handleChange}
-        >
-          <option value="">Välj skick</option>
-          {conditions.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-        <label htmlFor="genre">Genre</label>
-        <select
-          id="genre"
-          name="genre"
-          value={filters.genre}
-          onChange={handleChange}
-        >
-          <option value="">Välj genre</option>
-          {genres.map((g) => (
-            <option key={g} value={g}>
-              {g}
-            </option>
-          ))}
-        </select>
+        <div className="browse__search-fields row">
+          <div className="col-12 col-md-4">
+            <label htmlFor="search">Sök efter titel/författare</label>
+            <input
+              type="text"
+              name="q"
+              id="search"
+              onChange={handleChange}
+              value={filters.q}
+            />
+          </div>
+          <div className="col-12 col-md-3">
+            <label htmlFor="condition">Skick</label>
+            <select
+              id="condition"
+              name="condition"
+              value={filters.condition}
+              onChange={handleChange}
+            >
+              <option value="">Välj skick</option>
+              {conditions.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col-12 col-md-3">
+            <label htmlFor="genre">Genre</label>
+            <select
+              id="genre"
+              name="genre"
+              value={filters.genre}
+              onChange={handleChange}
+            >
+              <option value="">Välj genre</option>
+              {genres.map((g) => (
+                <option key={g} value={g}>
+                  {g}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
         <div className="row">
           {availableBooks.map((book) => (
