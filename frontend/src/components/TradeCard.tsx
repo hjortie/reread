@@ -82,13 +82,41 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
           ))}
         </div>
 
-        {type === "incoming" && (
-          <div>
-            <button className="theme-btn" onClick={open}>
-              Besvara förfrågan
-            </button>
-          </div>
-        )}
+        {/* inkommande byten */}
+        {type === "incoming" &&
+          (trade.status === "pending" ? (
+            <div>
+              <button className="theme-btn" onClick={open}>
+                Besvara förfrågan
+              </button>
+            </div>
+          ) : trade.status === "accepted" ? (
+            <div>
+              {typeof trade.requesterId !== "string" && (
+                <a href={`mailto:${trade.requesterId.email}`}>
+                  Kontakta avsändaren
+                </a>
+              )}
+            </div>
+          ) : null)}
+
+        {/* utgående byten */}
+        {type === "outgoing" &&
+          (trade.status === "pending" ? (
+            <div>
+              <button className="theme-btn" disabled>
+                Inväntar svar
+              </button>
+            </div>
+          ) : trade.status === "accepted" ? (
+            <div>
+              {typeof trade.receiverId !== "string" && (
+                <a href={`mailto:${trade.receiverId.email}`}>
+                  Kontakta mottagaren
+                </a>
+              )}
+            </div>
+          ) : null)}
       </div>
 
       {/* Modal - UI för att besvara förfrågan */}

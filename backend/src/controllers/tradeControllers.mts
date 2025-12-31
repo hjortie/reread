@@ -54,11 +54,15 @@ export const getTrades = async (
   try {
     const incomingTrades = await Trade.find({ receiverId: userId })
       .populate("requestedBook", "_id title author imageUrl condition genre")
-      .populate("offeredBooks", "_id title author imageUrl condition genre");
+      .populate("offeredBooks", "_id title author imageUrl condition genre")
+      .populate("requesterId", "_id email username")
+      .populate("receiverId", "_id email username");
 
     const outgoingTrades = await Trade.find({ requesterId: userId })
       .populate("requestedBook", "_id title author imageUrl condition genre")
-      .populate("offeredBooks", "_id title author imageUrl condition genre");
+      .populate("offeredBooks", "_id title author imageUrl condition genre")
+      .populate("requesterId", "_id email username")
+      .populate("receiverId", "_id email username");
     return {
       incoming: incomingTrades as TradeType[],
       outgoing: outgoingTrades as TradeType[],

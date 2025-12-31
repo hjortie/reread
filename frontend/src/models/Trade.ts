@@ -1,4 +1,5 @@
 import { Book } from "./Book";
+import { User } from "./User";
 
 export type Trade = {
   _id: string;
@@ -12,8 +13,8 @@ export type Trade = {
 
 export type PopTrade = {
   _id: string;
-  requesterId: string; //User-id
-  receiverId: string; //user-id
+  requesterId: User; //User- populeras
+  receiverId: User; //user - populeras
   offeredBooks: Book[]; //böcker- populeras i vissa lägen i backend
   requestedBook: Book; //böcker - populeras i vissa lägen i backend
   acceptedOfferedBook: string | null; //i backend defaultar värdet till null och ej undefined
