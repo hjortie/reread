@@ -1,0 +1,42 @@
+@use "../abstracts/" as *;
+@use "sass:map";
+
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("../../assets/hero.jpg");
+  min-height: 50vh;
+  background-size: cover;
+  backdrop-filter: blur(10px);
+  display: flex;
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+  flex-direction: column;
+
+  h1,
+  h2 {
+    color: map.get($theme-colors, ecru-white);
+  }
+
+  &__spinner {
+    align-self: flex-end;
+    animation: rotating linear 20s infinite;
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-left: 2rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+}
