@@ -63,19 +63,21 @@ export const TradeForm = (props: TradeFormProps) => {
     <>
       <form id="trade-form" onSubmit={handleSubmit} action="post">
         <p>Välj en eller flera av dina böcker att erbjuda i utbyte mot boken</p>
-        {ownedBooks.map((b) => {
-          return (
-            <div key={b._id}>
-              <input
-                id={b._id}
-                type="checkbox"
-                checked={selectedBooks.includes(b._id)}
-                onChange={handleCheckboxChange}
-              ></input>
-              <label htmlFor={b._id}>{b.title}</label>
-            </div>
-          );
-        })}
+        {ownedBooks
+          .filter((ob) => ob.status === "available")
+          .map((b) => {
+            return (
+              <div key={b._id}>
+                <input
+                  id={b._id}
+                  type="checkbox"
+                  checked={selectedBooks.includes(b._id)}
+                  onChange={handleCheckboxChange}
+                ></input>
+                <label htmlFor={b._id}>{b.title}</label>
+              </div>
+            );
+          })}
 
         <button className="theme-btn" disabled={selectedBooks.length === 0}>
           Skicka bytesförfrågan

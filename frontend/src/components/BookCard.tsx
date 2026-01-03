@@ -8,19 +8,22 @@ type BookViewProps = {
 export const BookCard = (props: BookViewProps) => {
   return (
     <>
-      <div className="book-container col-6 col-md-3">
+      <div className="book-container col-6 col-md-3 col-lg-2">
         <Link className="book-card" to={`/book/${String(props.book._id)}`}>
           <div className="book-card__img">
             <img
               src={
                 props.book.imageUrl != "" ? props.book.imageUrl : defaultBook
               }
+              className={props.book.imageUrl != "" ? "cover" : "fill"}
               alt={props.book.title}
             />
           </div>
-
-          <strong>{props.book.title}</strong>
-          <p>{props.book.author}</p>
+          <div className="book-card__text">
+            <strong>{props.book.title}</strong>
+            <p>{props.book.author}</p>
+          </div>
+          <small className="text-muted">{props.book.condition}</small>
         </Link>
       </div>
     </>

@@ -52,12 +52,14 @@ export const Dashboard = () => {
     return (
       <div className="dashboard container">
         <h1>Du är inte inloggad</h1>
-        <button className="theme-btn" onClick={handleLoginClick}>
-          Logga in
-        </button>
-        <button className="theme-btn" onClick={handleRegisterClick}>
-          Registrera dig
-        </button>
+        <div>
+          <button className="theme-btn" onClick={handleLoginClick}>
+            Logga in
+          </button>
+          <button className="theme-btn" onClick={handleRegisterClick}>
+            Registrera dig
+          </button>
+        </div>
         {error && <span>{error}</span>}
       </div>
     );
