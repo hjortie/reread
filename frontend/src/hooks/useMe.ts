@@ -21,5 +21,5 @@ export const useMe = () => {
     })();
   }, [fetched]);
 
-  return { user, fetched, error };
+  return { user, fetched, setUser, error };
 };

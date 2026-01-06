@@ -7,7 +7,7 @@ export const Footer = () => {
           <Frame />
         </div>
         <div className="footer__content">
-          <div className="footer__content--text container">
+          <div className="footer__content--text container text-center">
             © Elin Hjortskull, 2025
           </div>
         </div>

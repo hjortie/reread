@@ -6,20 +6,20 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 
   &__decoration {
     z-index: -9;
     svg {
-      transform: translateY(9px);
+      transform: translateY(4px);
       width: 100%;
       height: min-content;
       fill: map.get($theme-colors, "fuzzy-brown");
     }
   }
   &__content {
-    display: flex;
     width: 100%;
-    padding-bottom: 5rem;
+    padding: 2rem 0;
     background: map.get($theme-colors, "fuzzy-brown");
 
     &--text {
