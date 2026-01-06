@@ -1,5 +1,5 @@
 import express from "express";
-import { getBooks } from "../controllers/browseControllers.mjs";
+import { getBookById, getBooks } from "../controllers/browseControllers.mjs";
 
 export const browseRouter = express.Router();
 
@@ -20,5 +20,18 @@ browseRouter.get("/", async (req, res) => {
     res.status(200).json({ message: "Books loaded", books });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+//endpoint för singelfetch utan statusbegränsning
+browseRouter.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const book = await getBookById(id);
+
+    if (!book) return res.status(404).json({ message: "Book not found" });
+    return res.status(200).json(book);
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
   }
 });

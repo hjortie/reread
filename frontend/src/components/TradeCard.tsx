@@ -2,6 +2,7 @@ import { PopTrade } from "../models/Trade";
 import defaultBook from "../assets/defaultBook.svg";
 import { useState } from "react";
 import { respondToTrade } from "../services/tradeServices";
+import { Link } from "react-router";
 
 type TradeCardProps = {
   trade: PopTrade;
@@ -80,7 +81,9 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
             <p>Erbjuden bok:</p>
           )}
           {trade.offeredBooks.map((b) => (
-            <p key={b._id}>{b.title}</p>
+            <Link key={b._id} to={`/book/${b._id}`}>
+              {b.title}
+            </Link>
           ))}
         </div>
 

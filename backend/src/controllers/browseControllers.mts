@@ -22,3 +22,13 @@ export const getBooks = async (
   }
   return books;
 };
+
+export const getBookById = async (
+  id: string
+): Promise<BookType | undefined> => {
+  const foundBook = await Book.findOne({ _id: id });
+
+  if (!foundBook) {
+    return undefined;
+  } else return foundBook as BookType;
+};

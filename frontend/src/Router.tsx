@@ -4,7 +4,7 @@ import { Registration } from "./pages/Registration";
 import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Landing } from "./pages/Landing";
-import { Book } from "./pages/Book";
+import { BookPage } from "./pages/Book";
 import { Browse } from "./pages/Browse";
 
 export const router = createBrowserRouter([
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/browse", element: <Browse /> },
       { path: "/dashboard", element: <Dashboard /> },
-      { path: "/book/:id", element: <Book /> },
+      { path: "/book/:id", element: <BookPage /> },
     ],
   },
 ]);

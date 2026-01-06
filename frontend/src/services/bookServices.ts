@@ -8,6 +8,11 @@ export const getBooks = async () => {
   return response.data.books as Book[];
 };
 
+export const getBookById = async (id: string): Promise<Book> => {
+  const response = await axios.get(`${API_BASE}/books/${id}`);
+  return response.data;
+};
+
 export const getOwnedBooks = async () => {
   const response = await axios.get(`${API_BASE}/my-books`, {
     withCredentials: true,
