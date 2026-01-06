@@ -22,7 +22,7 @@ export const Landing = () => {
 
         {!user && (
           <>
-            <div>
+            <div className="row justify-content-center g-1">
               <button className="theme-btn" onClick={handleLoginClick}>
                 Logga in
               </button>
