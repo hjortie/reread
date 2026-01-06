@@ -24,5 +24,24 @@
     flex-direction: row;
     justify-content: end;
     gap: 1rem;
+
+    a {
+      color: map.get($theme-colors, "fuzzy-brown");
+      transition: all 0.2s;
+
+      &:hover {
+        color: map.get($theme-colors, "sandy-brown");
+      }
+
+      &.active,
+      &[aria-current="page"] {
+        color: map.get($theme-colors, "sandy-brown");
+        font-weight: 600;
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
   }
 }

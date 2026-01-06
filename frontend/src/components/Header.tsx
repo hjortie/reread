@@ -34,7 +34,7 @@ export const Header = () => {
     <>
       <header className="container header">
         <div className="logo">
-          <NavLink to={"/"}>
+          <NavLink to={"/"} aria-label="link to landing">
             <Logo width={100} height={100} />
           </NavLink>
         </div>

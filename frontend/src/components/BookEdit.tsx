@@ -15,6 +15,11 @@ export const BookEdit = (props: BookEditProps) => {
   const { booksDispatch } = useContext(BooksContext);
 
   const handleDeleteClick = async () => {
+    const ok = window.confirm(
+      `Är du säker på att du vill ta bort "${props.book.title}"?`
+    );
+    if (!ok) return;
+
     const deleted = await deleteOwnedBook(props.book._id);
     alert(`Du har tagit bort ${deleted.title}`);
     setTimeout(() => navigate("/dashboard"), 20);
@@ -23,6 +28,7 @@ export const BookEdit = (props: BookEditProps) => {
   return (
     <div className="col-12 col-md-6">
       <h1>Redigera bok</h1>
+      <p>Du behöver bara fylla i de fält som du vill redigera.</p>
       <BookInfoForm action="put" bookId={props.book._id} />
       <h2>Ta bort bok</h2>
       <button onClick={handleDeleteClick} className="theme-btn">

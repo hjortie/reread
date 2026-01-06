@@ -6,7 +6,7 @@ import { useMe } from "../hooks/useMe";
 import { PopTrade } from "../models/Trade";
 import { UserTrades } from "../components/UserTrades";
 import { getTrades } from "../services/tradeServices";
-import { useNavigate } from "react-router";
+import { UserActions } from "../components/UserActions";
 
 export const Dashboard = () => {
   const { books } = useContext(BooksContext);
@@ -14,20 +14,11 @@ export const Dashboard = () => {
   const [incomingTrades, setIncomingTrades] = useState<PopTrade[]>([]);
   const [outgoingTrades, setOutgoingTrades] = useState<PopTrade[]>([]);
   const { user, error } = useMe();
-  const navigate = useNavigate();
 
   const refreshTrades = async () => {
     const data = await getTrades();
     setIncomingTrades(data.incoming);
     setOutgoingTrades(data.outgoing);
-  };
-
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
-
-  const handleRegisterClick = () => {
-    navigate("/register");
   };
 
   const ownedBooks = books.filter((b) => b.ownerId === user?._id);
@@ -52,14 +43,7 @@ export const Dashboard = () => {
     return (
       <div className="dashboard container">
         <h1>Du är inte inloggad</h1>
-        <div>
-          <button className="theme-btn" onClick={handleLoginClick}>
-            Logga in
-          </button>
-          <button className="theme-btn" onClick={handleRegisterClick}>
-            Registrera dig
-          </button>
-        </div>
+        <UserActions />
         {error && <span>{error}</span>}
       </div>
     );
@@ -87,9 +71,14 @@ export const Dashboard = () => {
 
           <div className="books-container row">
             <h2>Dina böcker</h2>
-            {ownedBooks.map((book) => (
-              <BookCard book={book} key={book._id} />
-            ))}
+            {ownedBooks.length > 1 ? (
+              ownedBooks.map((book) => <BookCard book={book} key={book._id} />)
+            ) : (
+              <p>Du behöver lägga till böcker här för att kunna skapa byten.</p>
+            )}
+            <a className="theme-btn" href="/browse">
+              Leta efter nya läsupplevelser!
+            </a>
           </div>
 
           <h2>Lägg till fler böcker</h2>

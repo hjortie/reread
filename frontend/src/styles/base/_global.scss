@@ -9,6 +9,7 @@ body {
   margin: 0;
   padding: 0;
   background: map.get($theme-colors, "ecru-white");
+  color: map.get($theme-colors, "night-rider");
 }
 
 #app {

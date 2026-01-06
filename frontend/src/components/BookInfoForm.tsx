@@ -138,6 +138,10 @@ export const BookInfoForm = (props: formProps) => {
       </div>
       <div className="col-12 col-md-6">
         <label htmlFor="imageUrl">Omslagsbild</label>
+        <small>
+          Skriv in bildens URL
+          {props.action === "post" && " - omslagsbild är ej obligatoriskt"}
+        </small>
         <input
           type="text"
           id="imageUrl"

@@ -23,7 +23,7 @@ export const BookCard = (props: BookViewProps) => {
             <strong>{props.book.title}</strong>
             <p>{props.book.author}</p>
           </div>
-          <small className="text-muted">{props.book.condition}</small>
+          <small className="">{props.book.condition}</small>
         </Link>
       </div>
     </>

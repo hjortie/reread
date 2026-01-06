@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createUser } from "../services/authServices";
+import { useNavigate } from "react-router";
 
 export const Registration = () => {
   const defaultValues = {
@@ -12,6 +13,7 @@ export const Registration = () => {
   const [form, setForm] = useState(defaultValues);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -42,6 +44,7 @@ export const Registration = () => {
     } finally {
       setSubmitting(false);
       setForm(defaultValues);
+      navigate("/login");
     }
   };
 
@@ -50,7 +53,7 @@ export const Registration = () => {
       <h1>Registrera konto</h1>
       <form onSubmit={onSubmit} id="registration-form">
         <div>
-          <label htmlFor="name">Användarnamn</label>
+          <label htmlFor="name">Namn</label>
           <input
             id="username"
             name="username"
@@ -75,6 +78,7 @@ export const Registration = () => {
         </div>
         <div>
           <label htmlFor="password">Lösenord</label>
+          <small>Måste innehålla minst åtta tecken</small>
           <input
             id="password"
             name="password"
