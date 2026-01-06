@@ -53,4 +53,9 @@ base-btn {
     background: lighten(map.get($theme-colors, "fuzzy-brown"), 40%);
     text-decoration: underline;
   }
+
+  &:disabled {
+    color: rgba(188, 75, 81, 0.5);
+    cursor: not-allowed;
+  }
 }
