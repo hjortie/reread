@@ -11,6 +11,7 @@ import { requireAuth } from "./middleware/requireAuth.mjs";
 import { browseRouter } from "./routes/browseRoute.mjs";
 import { optionalAuth } from "./middleware/optionalAuth.mjs";
 import { tradeRouter } from "./routes/tradeRoute.mjs";
+import { logoutRouter } from "./routes/logoutRoute.mjs";
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use("/me", optionalAuth, meRouter);
 app.use("/books", optionalAuth, browseRouter);
 app.use("/my-books", requireAuth, ownedBooksRouter);
 app.use("/trade", requireAuth, tradeRouter);
+app.use("/logout", requireAuth, logoutRouter);
 
 app.listen(port, async () => {
   try {
