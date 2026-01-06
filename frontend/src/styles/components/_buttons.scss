@@ -6,6 +6,7 @@ base-btn {
   border-radius: 10px;
   padding: 0.5rem 1.5rem;
   min-width: 20px;
+  width: max-content;
   transition: all 0.2s;
   line-height: 28px;
   font-size: 20px;
@@ -14,11 +15,42 @@ base-btn {
 
 .theme-btn {
   @extend base-btn;
-  background: map.get($theme-colors, chelsea-cucumber);
-  color: map.get($theme-colors, night-rider);
+  background: map.get($theme-colors, "chelsea-cucumber");
+  color: map.get($theme-colors, "night-rider");
   text-decoration: none;
 
-  &:hover {
-    border: 3px solid map.get($theme-colors, patina);
+  &:hover:not(:disabled) {
+    border: 3px solid darken(map.get($theme-colors, "chelsea-cucumber"), 20%);
+  }
+  &:disabled {
+    color: rgba(32, 20, 21, 0.5);
+    cursor: not-allowed;
+  }
+}
+
+.warn-btn {
+  @extend base-btn;
+  background: map.get($theme-colors, "fuzzy-brown");
+  color: map.get($theme-colors, "ecru-white");
+  text-decoration: none;
+
+  &:hover:not(:disabled) {
+    border: 3px solid lighten(map.get($theme-colors, "night-rider"), 30%);
+  }
+  &:disabled {
+    color: rgba(32, 20, 21, 0.5);
+    cursor: not-allowed;
+  }
+}
+
+.ghost-btn {
+  @extend base-btn;
+  background: transparent;
+  color: map.get($theme-colors, "fuzzy-brown");
+  box-shadow: 0 0 0 3px map.get($theme-colors, "fuzzy-brown");
+
+  &:hover:not(:disabled) {
+    background: lighten(map.get($theme-colors, "fuzzy-brown"), 40%);
+    text-decoration: underline;
   }
 }

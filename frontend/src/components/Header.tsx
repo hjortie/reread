@@ -43,7 +43,11 @@ export const Header = () => {
           <NavLink to={"/browse"}>Böcker</NavLink>
           <NavLink to={"/dashboard"}>Dashboard</NavLink>
           {fetched && isLoggedIn && (
-            <button onClick={signOut} disabled={loggingOut}>
+            <button
+              onClick={signOut}
+              className="ghost-btn"
+              disabled={loggingOut}
+            >
               Logga ut
             </button>
           )}

@@ -61,6 +61,7 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
                   ? trade.requestedBook.imageUrl
                   : defaultBook
               }
+              alt={trade.requestedBook.title}
             />
           </div>
           <div className="trade-card__book-img">
@@ -70,6 +71,7 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
                   ? trade.offeredBooks[0].imageUrl
                   : defaultBook
               }
+              alt={trade.offeredBooks[0].title}
             />
           </div>
           {trade.offeredBooks.length > 1 ? (

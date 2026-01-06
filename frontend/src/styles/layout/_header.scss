@@ -22,10 +22,12 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    align-items: baseline;
     justify-content: end;
     gap: 1rem;
 
     a {
+      font-weight: 500;
       color: map.get($theme-colors, "fuzzy-brown");
       transition: all 0.2s;
 

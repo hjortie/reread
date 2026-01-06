@@ -30,8 +30,10 @@ export const BookEdit = (props: BookEditProps) => {
       <h1>Redigera bok</h1>
       <p>Du behöver bara fylla i de fält som du vill redigera.</p>
       <BookInfoForm action="put" bookId={props.book._id} />
+      <hr />
       <h2>Ta bort bok</h2>
-      <button onClick={handleDeleteClick} className="theme-btn">
+      <p>Radera boken permanent.</p>
+      <button onClick={handleDeleteClick} className="warn-btn">
         Radera {props.book.title}
       </button>
     </div>

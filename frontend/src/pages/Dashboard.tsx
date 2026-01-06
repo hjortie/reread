@@ -76,10 +76,11 @@ export const Dashboard = () => {
             ) : (
               <p>Du behöver lägga till böcker här för att kunna skapa byten.</p>
             )}
-            <a className="theme-btn" href="/browse">
-              Leta efter nya läsupplevelser!
-            </a>
           </div>
+
+          <a className="theme-btn" href="/browse">
+            Leta efter nya läsupplevelser!
+          </a>
 
           <h2>Lägg till fler böcker</h2>
           <BookInfoForm action="post" />

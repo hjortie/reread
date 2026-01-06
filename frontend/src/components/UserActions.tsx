@@ -13,14 +13,12 @@ export const UserActions = () => {
 
   return (
     <section className="user-actions">
-      <div className="row justify-content-center g-1">
-        <button className="theme-btn" onClick={handleLoginClick}>
-          Logga in
-        </button>
-        <button className="theme-btn" onClick={handleRegisterClick}>
-          Registrera dig
-        </button>
-      </div>
+      <button className="theme-btn" onClick={handleLoginClick}>
+        Logga in
+      </button>
+      <button className="theme-btn" onClick={handleRegisterClick}>
+        Registrera dig
+      </button>
     </section>
   );
 };
