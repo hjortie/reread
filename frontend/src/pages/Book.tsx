@@ -55,11 +55,13 @@ export const Book = () => {
               </div>
             ) : user?._id === selectedBook.ownerId ? (
               <BookEdit book={selectedBook} />
-            ) : (
+            ) : selectedBook.status === "available" ? (
               <div className="col-12 col-md-6">
                 <h1>Lägg ett bud</h1>
                 <TradeForm bookId={selectedBook._id} />
               </div>
+            ) : (
+              <></>
             )}
           </div>
         </div>
