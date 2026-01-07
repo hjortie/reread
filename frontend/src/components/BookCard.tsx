@@ -13,7 +13,11 @@ export const BookCard = (props: BookViewProps) => {
           <div className="book-card__img">
             <img
               src={
-                props.book.imageUrl !== "" ? props.book.imageUrl : defaultBook
+                props.book.imageUrl !== ""
+                  ? props.book.imageUrl
+                  : !props.book.imageUrl
+                  ? defaultBook
+                  : defaultBook
               }
               className={props.book.imageUrl !== "" ? "cover" : "fill"}
               alt={props.book.title}

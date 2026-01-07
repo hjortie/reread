@@ -9,9 +9,16 @@
   align-items: center;
 
   h2 {
+    text-align: center;
     color: map.get($theme-colors, "ecru-white");
   }
   a {
     transform: translateX(10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .CTA-block {
+    flex-direction: column;
   }
 }

@@ -79,7 +79,7 @@ export const Dashboard = () => {
           <div className="books-container">
             <h2>Dina böcker</h2>
             <div className="row">
-              {ownedBooks.length > 1 ? (
+              {ownedBooks.length >= 1 ? (
                 ownedBooks.map((book) => (
                   <BookCard book={book} key={book._id} />
                 ))
