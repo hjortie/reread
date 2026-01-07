@@ -2,7 +2,7 @@ export const Guide = () => {
   return (
     <>
       <section className="container guide">
-        <h2>Så här enkelt kommer du igång!</h2>
+        <h2>Kom igång direkt:</h2>
         <div className="row">
           <div className="col-12 col-md-4">
             <h3>1. Registrera ett konto</h3>

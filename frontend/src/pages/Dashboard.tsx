@@ -25,6 +25,7 @@ export const Dashboard = () => {
   const ownedBooks = books.filter((b) => b.ownerId === user?._id);
   useEffect(() => {
     const load = async () => {
+      if (!user) return;
       try {
         const trades = await getTrades();
         setIncomingTrades(trades.incoming);
