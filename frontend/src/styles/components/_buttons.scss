@@ -4,7 +4,6 @@
 base-btn {
   border: 3px solid transparent;
   border-radius: 10px;
-  padding: 0.5rem 1.5rem;
   min-width: 20px;
   width: max-content;
   transition: all 0.2s;
@@ -15,6 +14,7 @@ base-btn {
 
 .theme-btn {
   @extend base-btn;
+  padding: 0.5rem 1.5rem;
   background: map.get($theme-colors, "chelsea-cucumber");
   color: map.get($theme-colors, "night-rider");
   text-decoration: none;
@@ -45,6 +45,7 @@ base-btn {
 
 .ghost-btn {
   @extend base-btn;
+  padding: 0.5rem;
   background: transparent;
   color: map.get($theme-colors, "fuzzy-brown");
   box-shadow: 0 0 0 3px map.get($theme-colors, "fuzzy-brown");

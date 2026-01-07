@@ -2,11 +2,27 @@
 @use "sass:map";
 
 .trade-card {
+  background: map.get($theme-colors, "flax");
+  padding: 2rem;
+  border-radius: 20px;
+
   &__book-img {
     width: 50%;
+    padding-bottom: 1rem;
 
     img {
       width: 100%;
+    }
+  }
+  &__book-link {
+    color: map.get($theme-colors, "fuzzy-brown");
+    font-weight: 500;
+    &:last-of-type {
+      padding-bottom: 1rem;
+    }
+
+    &:hover {
+      color: darken(map.get($theme-colors, "fuzzy-brown"), 15%);
     }
   }
 }

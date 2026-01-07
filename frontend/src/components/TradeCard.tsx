@@ -51,7 +51,7 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
     }
   };
   return (
-    <div className="col-6 col-md-3 col-lg-2" key={trade._id}>
+    <div className="col-12 col-md-4 col-lg-3" key={trade._id}>
       <div className="trade-card">
         <h3>{trade.requestedBook.title}</h3>
         <div className="row">
@@ -80,15 +80,15 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
           ) : (
             <p>Erbjuden bok:</p>
           )}
-          <ul>
-            {trade.offeredBooks.map((b) => (
-              <li key={b._id}>
-                <Link to={`/book/${b._id}`} className="trade-card__book-link">
-                  {b.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {trade.offeredBooks.map((b) => (
+            <Link
+              to={`/book/${b._id}`}
+              key={b._id}
+              className="trade-card__book-link"
+            >
+              {b.title}
+            </Link>
+          ))}
         </div>
 
         {/* inkommande byten */}
@@ -96,7 +96,7 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
           (trade.status === "pending" ? (
             <div>
               <button className="theme-btn" onClick={open}>
-                Besvara förfrågan
+                Besvara
               </button>
             </div>
           ) : trade.status === "accepted" ? (

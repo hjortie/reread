@@ -1,0 +1,16 @@
+@use "../abstracts/" as *;
+@use "sass:map";
+
+.dashboard {
+  .books-container {
+    background: map.get($theme-colors, "flax");
+    padding: 2rem;
+    border-radius: 20px;
+  }
+
+  .trades-container {
+    padding: 2rem;
+    box-shadow: 0 0 0 4px map.get($theme-colors, "flax") inset;
+    border-radius: 20px;
+  }
+}

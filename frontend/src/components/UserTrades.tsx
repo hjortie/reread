@@ -17,11 +17,12 @@ export const UserTrades = ({ trades, type, onRefresh }: UserTradesProps) => {
       {/* ej hanterade trade requests */}
       {pending.length !== 0 && (
         <>
-          <h2>
+          <h2>{type === "incoming" ? "Inkommande bud" : "Skickade bud"}</h2>
+          <p>
             {type === "incoming"
-              ? "Inkommande bytesförfrågningar"
-              : "Skickade bytesförfrågningar"}
-          </h2>
+              ? "Bytesförfrågningar som gjorts mot dina böcker."
+              : "Bytesförfrågningar som du skickat mot andras böcker."}
+          </p>
           <div className="row">
             {pending.map((t) => (
               <TradeCard
@@ -36,11 +37,13 @@ export const UserTrades = ({ trades, type, onRefresh }: UserTradesProps) => {
       )}
       {accepted.length !== 0 && (
         <>
-          <h2>
+          <h2>Nya byten</h2>
+          <p>
             {type === "incoming"
-              ? "Nya byten"
-              : "Accepterade bytesförfrågningar"}
-          </h2>
+              ? "Byten som du har accepterat."
+              : "Bytesförfrågningar som accepterats av motpart."}{" "}
+            Kontakta motparten för att slutföra bytet!
+          </p>
           <div className="row">
             {accepted.map((a) => (
               <TradeCard key={a._id} trade={a} type={type} />
@@ -51,11 +54,12 @@ export const UserTrades = ({ trades, type, onRefresh }: UserTradesProps) => {
       {/* nekade trade requests */}
       {declined.length !== 0 && (
         <>
-          <h2>
+          <h2>Nekade bud</h2>
+          <p>
             {type === "incoming"
               ? "Bud som du nekat"
-              : "Budförfrågningar som har nekats av mottagare"}
-          </h2>
+              : "Bud som har nekats av mottagare"}
+          </p>
           <div className="row">
             {declined.map((d) => (
               <TradeCard key={d._id} trade={d} type={type} />

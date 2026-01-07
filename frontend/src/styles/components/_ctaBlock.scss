@@ -1,0 +1,17 @@
+@use "../abstracts/" as *;
+@use "sass:map";
+
+.CTA-block {
+  background: no-repeat center / cover url("../../assets/CTA.jpg");
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    color: map.get($theme-colors, "ecru-white");
+  }
+  a {
+    transform: translateX(10px);
+  }
+}
