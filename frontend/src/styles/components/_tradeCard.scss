@@ -5,6 +5,11 @@
   background: map.get($theme-colors, "flax");
   padding: 2rem;
   border-radius: 20px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(101%);
+  }
 
   &__book-img {
     width: 50%;
@@ -14,6 +19,7 @@
       width: 100%;
     }
   }
+
   &__book-link {
     color: map.get($theme-colors, "fuzzy-brown");
     font-weight: 500;

@@ -13,6 +13,11 @@
     border-radius: 10px;
     color: initial;
     text-decoration: none;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(101%);
+    }
 
     &__img {
       background-color: map.get($theme-colors, "ecru-white");
