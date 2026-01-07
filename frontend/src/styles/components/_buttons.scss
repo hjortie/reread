@@ -57,6 +57,7 @@ base-btn {
   }
 
   &:disabled {
+    box-shadow: 0 0 0 3px rgba(188, 75, 81, 0.5);
     color: rgba(188, 75, 81, 0.5);
     cursor: not-allowed;
   }

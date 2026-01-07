@@ -4,8 +4,10 @@ import { BookCard } from "../components/BookCard";
 import { conditions, genres } from "../components/BookInfoForm";
 import { useMe } from "../hooks/useMe";
 
+const defaultFilters = { q: "", condition: "", genre: "" };
+
 export const Browse = () => {
-  const [filters, setFilters] = useState({ q: "", condition: "", genre: "" });
+  const [filters, setFilters] = useState(defaultFilters);
   const { books } = useContext(BooksContext);
   const { user } = useMe();
 
@@ -13,6 +15,10 @@ export const Browse = () => {
   if (user) {
     availableBooks = availableBooks.filter((book) => book.ownerId !== user._id);
   }
+
+  const handleFilters = () => {
+    setFilters(defaultFilters);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -85,7 +91,9 @@ export const Browse = () => {
               ))}
             </select>
           </div>
-          <button className="warn-btn col-2">nollställ filter</button>
+          <button onClick={handleFilters} className="warn-btn col-2">
+            Nollställ filter
+          </button>
         </div>
 
         <div className="row">
