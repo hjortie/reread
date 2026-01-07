@@ -18,7 +18,7 @@ export const BookPage = () => {
 
   const selectedBook = books.find((b) => b._id === id);
 
-  //hämta bok om den inte redan är i contexten - t ex om status inte är available
+  //hämta bok om den inte finns i context - dvs böcker som är i byte och har annan status än "available"
   useEffect(() => {
     if (!id || selectedBook || hasLoadedBook) return;
 

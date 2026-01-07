@@ -85,6 +85,7 @@ export const Browse = () => {
               ))}
             </select>
           </div>
+          <button className="warn-btn col-2">nollställ filter</button>
         </div>
 
         <div className="row">

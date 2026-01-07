@@ -80,11 +80,15 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
           ) : (
             <p>Erbjuden bok:</p>
           )}
-          {trade.offeredBooks.map((b) => (
-            <Link key={b._id} to={`/book/${b._id}`}>
-              {b.title}
-            </Link>
-          ))}
+          <ul>
+            {trade.offeredBooks.map((b) => (
+              <li key={b._id}>
+                <Link to={`/book/${b._id}`} className="trade-card__book-link">
+                  {b.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* inkommande byten */}
@@ -98,8 +102,11 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
           ) : trade.status === "accepted" ? (
             <div>
               {typeof trade.requesterId !== "string" && (
-                <a href={`mailto:${trade.requesterId.email}`}>
-                  Kontakta avsändaren
+                <a
+                  className="ghost-btn d-block"
+                  href={`mailto:${trade.requesterId.email}`}
+                >
+                  Skicka mejl
                 </a>
               )}
             </div>
@@ -109,15 +116,18 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
         {type === "outgoing" &&
           (trade.status === "pending" ? (
             <div>
-              <button className="theme-btn" disabled>
+              <button className="ghost-btn" disabled>
                 Inväntar svar
               </button>
             </div>
           ) : trade.status === "accepted" ? (
             <div>
               {typeof trade.receiverId !== "string" && (
-                <a href={`mailto:${trade.receiverId.email}`}>
-                  Kontakta mottagaren
+                <a
+                  className="ghost-btn d-block"
+                  href={`mailto:${trade.receiverId.email}`}
+                >
+                  Skicka mejl
                 </a>
               )}
             </div>
@@ -178,7 +188,7 @@ export const TradeCard = ({ trade, type, onRefresh }: TradeCardProps) => {
                 Acceptera
               </button>
               <button
-                className="theme-btn"
+                className="warn-btn"
                 disabled={submitting}
                 onClick={onDecline}
               >

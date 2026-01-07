@@ -48,6 +48,7 @@ base-btn {
   background: transparent;
   color: map.get($theme-colors, "fuzzy-brown");
   box-shadow: 0 0 0 3px map.get($theme-colors, "fuzzy-brown");
+  text-decoration: none;
 
   &:hover:not(:disabled) {
     background: lighten(map.get($theme-colors, "fuzzy-brown"), 40%);
