@@ -25,7 +25,7 @@ export const Dashboard = () => {
   const ownedBooks = books.filter((b) => b.ownerId === user?._id);
   useEffect(() => {
     const load = async () => {
-      if (!user) return;
+      if (!!user) return; //demobugg åtgärdad - User-check ska kolla om NULL och inte undefined suck
       try {
         const trades = await getTrades();
         setIncomingTrades(trades.incoming);
